@@ -1,0 +1,204 @@
+import { useState } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { getProductById } from '../data/products';
+
+export default function ProductDetailPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const product = getProductById(id);
+
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [added, setAdded] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
+  if (!product) {
+    return (
+      <section className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-xl text-center">
+        <span className="material-symbols-outlined text-6xl text-outline-variant mb-md block">search_off</span>
+        <h1 className="text-style-headline-md text-primary mb-md">Product Not Found</h1>
+        <p className="text-style-body-lg text-on-surface-variant mb-lg">
+          We couldn't find the product you're looking for.
+        </p>
+        <Link
+          to="/"
+          className="inline-block text-style-button bg-primary text-on-primary py-sm px-lg hover:bg-primary-container transition-colors duration-300"
+        >
+          Back to Home
+        </Link>
+      </section>
+    );
+  }
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      priceNum: product.priceNum,
+      size: selectedSize,
+      quantity,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
+
+  return (
+    <section className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-lg md:py-xl">
+      {/* Breadcrumb */}
+      <nav aria-label="Breadcrumb" className="mb-lg">
+        <ol className="flex items-center gap-2 text-sm text-on-surface-variant">
+          <li>
+            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+          </li>
+          <li><span className="material-symbols-outlined text-sm">chevron_right</span></li>
+          <li>
+            <Link
+              to={`/collections/${product.category === 'mens' ? 'mens' : 'womens'}`}
+              className="hover:text-primary transition-colors"
+            >
+              {product.categoryLabel}
+            </Link>
+          </li>
+          <li><span className="material-symbols-outlined text-sm">chevron_right</span></li>
+          <li className="text-primary font-medium truncate max-w-[180px]">{product.name}</li>
+        </ol>
+      </nav>
+
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        {/* Product Image */}
+        <div className="md:col-span-7">
+          <div className="aspect-[4/5] bg-surface-container overflow-hidden relative">
+            <img
+              className="absolute inset-0 object-cover w-full h-full"
+              alt={product.alt}
+              src={product.image}
+            />
+          </div>
+        </div>
+
+        {/* Product Info */}
+        <div className="md:col-span-5 flex flex-col gap-md pt-sm">
+          {/* Category label */}
+          <Link
+            to={`/collections/${product.category === 'mens' ? 'mens' : 'womens'}`}
+            className="text-style-label-caps text-secondary hover:text-primary transition-colors w-fit"
+          >
+            {product.categoryLabel}
+          </Link>
+
+          <h1 className="font-headline text-3xl md:text-4xl text-primary leading-tight">
+            {product.name}
+          </h1>
+
+          <span className="text-style-body-lg text-on-surface-variant">{product.price}</span>
+
+          {/* Description */}
+          <p className="text-style-body-md text-on-surface-variant border-t border-outline-variant pt-md">
+            {product.description}
+          </p>
+
+          {/* Size Selector */}
+          {product.sizes && product.sizes.length > 0 && (
+            <div className="pt-sm">
+              <span className="text-style-label-caps text-primary mb-sm block">
+                Size {selectedSize && <span className="text-secondary ml-xs">— {selectedSize}</span>}
+              </span>
+              <div className="flex flex-wrap gap-sm">
+                {product.sizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`min-w-[48px] h-[48px] border text-style-button flex items-center justify-center transition-colors duration-200 cursor-pointer ${
+                      selectedSize === size
+                        ? 'bg-primary text-on-primary border-primary'
+                        : 'border-outline-variant text-primary hover:border-primary'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Quantity */}
+          <div className="pt-sm">
+            <span className="text-style-label-caps text-primary mb-sm block">Quantity</span>
+            <div className="flex items-center border border-outline-variant w-fit">
+              <button
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                className="w-[48px] h-[48px] flex items-center justify-center text-primary hover:bg-surface-container transition-colors cursor-pointer"
+                aria-label="Decrease quantity"
+              >
+                <span className="material-symbols-outlined text-xl">remove</span>
+              </button>
+              <span className="w-[48px] h-[48px] flex items-center justify-center text-style-body-md text-primary border-x border-outline-variant">
+                {quantity}
+              </span>
+              <button
+                onClick={() => setQuantity(quantity + 1)}
+                className="w-[48px] h-[48px] flex items-center justify-center text-primary hover:bg-surface-container transition-colors cursor-pointer"
+                aria-label="Increase quantity"
+              >
+                <span className="material-symbols-outlined text-xl">add</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Add to Cart */}
+          <button
+            onClick={handleAddToCart}
+            disabled={product.sizes && product.sizes.length > 0 && !selectedSize}
+            className={`w-full py-md text-style-button transition-colors duration-300 cursor-pointer mt-sm ${
+              added
+                ? 'bg-primary text-on-primary'
+                : product.sizes && product.sizes.length > 0 && !selectedSize
+                  ? 'bg-surface-container text-on-surface-variant cursor-not-allowed'
+                  : 'bg-primary text-on-primary hover:bg-primary-container'
+            }`}
+          >
+            {added
+              ? '✓ Added to Bag'
+              : product.sizes && product.sizes.length > 0 && !selectedSize
+                ? 'Select a Size'
+                : 'Add to Bag'}
+          </button>
+
+          {/* View Bag link after adding */}
+          {added && (
+            <Link
+              to="/cart"
+              className="w-full py-sm text-style-button border border-primary text-primary text-center hover:bg-surface-container transition-colors duration-300 block"
+            >
+              View Bag
+            </Link>
+          )}
+
+          {/* Product Details */}
+          <div className="border-t border-outline-variant pt-md mt-sm">
+            <h3 className="text-style-label-caps text-primary mb-sm">Product Details</h3>
+            <ul className="space-y-xs">
+              {product.details.map((detail, i) => (
+                <li key={i} className="text-style-body-md text-on-surface-variant flex items-start gap-xs">
+                  <span className="material-symbols-outlined text-sm mt-1 text-secondary flex-shrink-0">check</span>
+                  {detail}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Continue Shopping */}
+          <button
+            onClick={() => navigate(-1)}
+            className="mt-auto text-style-label-caps text-secondary hover:text-primary transition-colors cursor-pointer flex items-center gap-xs w-fit pt-md"
+          >
+            <span className="material-symbols-outlined text-sm">arrow_back</span>
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}

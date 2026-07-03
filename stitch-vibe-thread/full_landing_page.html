@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vibe &amp; Thread - Modern E-Commerce</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-container-high": "#e8e8e8",
+                        "inverse-primary": "#c8c6c5",
+                        "primary-container": "#1c1b1b",
+                        "on-primary-fixed-variant": "#474746",
+                        "on-secondary-fixed-variant": "#454744",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#444748",
+                        "on-primary-fixed": "#1c1b1b",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-dim": "#dadada",
+                        "outline-variant": "#c4c7c7",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "on-tertiary-fixed": "#1c1b1a",
+                        "tertiary-container": "#1c1b1a",
+                        "tertiary": "#000000",
+                        "inverse-surface": "#2f3131",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#e0e0db",
+                        "tertiary-fixed-dim": "#cac6c4",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#62635f",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#858383",
+                        "inverse-on-surface": "#f0f1f1",
+                        "secondary-fixed": "#e3e3de",
+                        "on-surface": "#1a1c1c",
+                        "surface-tint": "#5f5e5e",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container-low": "#f3f3f4",
+                        "secondary": "#5d5f5b",
+                        "outline": "#747878",
+                        "surface": "#f9f9f9",
+                        "on-secondary-fixed": "#1a1c19",
+                        "primary": "#000000",
+                        "on-primary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "on-tertiary-container": "#868382",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#e6e2df",
+                        "secondary-fixed-dim": "#c6c7c2",
+                        "on-background": "#1a1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "xl": "80px",
+                        "container-max": "1440px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "xs": "8px",
+                        "margin-desktop": "60px",
+                        "base": "4px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Libre Caslon Text"],
+                        "label-caps": ["Inter"],
+                        "headline-xl-mobile": ["Libre Caslon Text"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Libre Caslon Text"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "button": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-xl-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "button": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline-lg, .font-headline-md, .font-headline-xl { font-family: 'Libre Caslon Text', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- ANNOUNCEMENT BAR -->
+<div class="bg-primary-container text-on-primary w-full py-xs text-center font-label-caps text-label-caps tracking-widest z-50 relative">
+        SUMMER FLASH SALE: USE CODE VIBE20 FOR 20% OFF + FREE SHIPPING!
+    </div>
+<!-- NAVIGATION HEADER (TopAppBar from JSON) -->
+<header class="bg-surface-container-lowest border-b border-outline-variant fixed top-8 w-full z-40 transition-all">
+<div class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Leading Icon (Mobile Menu) -->
+<button class="md:hidden text-primary hover:opacity-70 transition-opacity duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<!-- Brand Logo -->
+<a class="font-headline-md text-headline-md tracking-tighter text-primary flex-shrink-0" href="#">
+                Vibe &amp; Thread
+            </a>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex space-x-lg font-label-caps text-label-caps">
+<a class="text-secondary hover:opacity-70 transition-opacity duration-200" href="#">New Arrivals</a>
+<a class="text-primary border-b border-primary pb-1 font-semibold" href="#">Collections</a>
+<a class="text-secondary hover:opacity-70 transition-opacity duration-200" href="#">Sustainability</a>
+<a class="text-secondary hover:opacity-70 transition-opacity duration-200" href="#">Journal</a>
+</nav>
+<!-- Trailing Icons -->
+<div class="flex items-center space-x-md text-primary">
+<button class="hover:opacity-70 transition-opacity duration-200 cursor-pointer hidden md:block">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="hover:opacity-70 transition-opacity duration-200 cursor-pointer hidden md:block">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button class="hover:opacity-70 transition-opacity duration-200 cursor-pointer flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-caps text-label-caps hidden md:inline">(0)</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[104px]"> <!-- Offset for fixed header + announcement -->
+<!-- HERO BLOCK -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-xl md:py-[120px]">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<!-- Hero Text (Left) -->
+<div class="md:col-span-5 flex flex-col space-y-lg">
+<h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary leading-tight">
+                        Redefining<br/>Modern Style
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                        Discover our new collection crafted from breathable, lightweight fabrics. Minimalist essentials designed for effortless, everyday elegance.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-md pt-sm">
+<button class="bg-surface-container text-primary font-button text-button uppercase py-sm px-lg hover:bg-surface-variant transition-colors border border-transparent">
+                            Shop Men's Collection
+                        </button>
+<button class="bg-transparent text-primary font-button text-button uppercase py-sm px-lg border border-primary hover:bg-surface-container-lowest transition-colors">
+                            Shop Women's Collection
+                        </button>
+</div>
+</div>
+<!-- Hero Image (Right) -->
+<div class="md:col-span-6 md:col-start-7 mt-xl md:mt-0 h-[500px] md:h-[700px] relative w-full overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A high-fashion editorial photograph of a model wearing minimalist, lightweight linen clothing in a modern, sunlit architectural space. The lighting is soft and natural, emphasizing the texture of the fabric. The composition is clean, airy, and sophisticated, reflecting a premium light-mode aesthetic with warm-gray and soft charcoal tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYNkUsfciV2XvNTiUTY3RgOTM_blljr6d0GkJ1zA-pfyNt6zXpiZKand8uqBqGeg8EM79mttIHT77JlxXZVrIOo6KuaPnFbN-Y1ZdDO57dL18EdtCaCEykp0iw0EKyY7dhjMXFnGgHNhBT2Xjhl9exsbUH5gOiR4lU5_iScznnXqjdIwcxytOVu0y6-z0ABjIbURnD2594F3cBVYkxTc2qUaVOe7W6VJpvSQ-yIqxg5IXnWwyvp3n43j5vOMGMug_O8chRZMPpaUE5"/>
+</div>
+</div>
+</section>
+<!-- CATEGORY QUICK LINKS -->
+<section class="bg-surface-container-low py-xl">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Category 1 -->
+<a class="group flex flex-col items-center space-y-md cursor-pointer" href="#">
+<div class="w-full aspect-[3/4] overflow-hidden bg-surface-container relative">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A meticulously styled flat lay of minimalist casual wear, including a crisp white cotton t-shirt and light beige trousers, laid out on a smooth, warm-gray surface. The lighting is bright and even, highlighting the premium quality of the materials in a clean, modern composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC7-u8PXAwN-K30Jaw4QMWOPbTYnMNzmiZmxpDLomBZ98fH06btSl0MdnW6M1YQKCR_VzRUPXUIisUcoH_ljpEIXxMD6W3GuzC9QM_O-Xsmcej7Ofk06N7mSne-PsCjrXYJdAariX6ZEuWgX6ZR3SNlf-FOmx2SjQCshap8qf356wLVjl4ORSWP2k7WQiXTw66nnX50zCKottcBBUedSoqXiKQ8ufwbiovjtGIFVIouI_w2BWEFcMxz7PtKlLsX5_1yB-W_MWdTqpW"/>
+</div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Casual Wear</span>
+</a>
+<!-- Category 2 -->
+<a class="group flex flex-col items-center space-y-md cursor-pointer" href="#">
+<div class="w-full aspect-[3/4] overflow-hidden bg-surface-container relative">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A close-up architectural shot of a meticulously tailored charcoal blazer draped over a minimalist wooden chair. The background is a soft, pristine white studio setting. The image evokes a sense of formal elegance and high-end craftsmanship, perfectly aligned with a premium, quiet luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXuXOAbKCHd0jQlJdRIK0RsoL2l7oVpi56MNeXes_ESU6TkUmUfon8YY8-hn4gVH5IwQqDl7DzFZBa3F3jNDb_eIQx5_Jet1H6naSUpBYuvGYB2bASlakn2cTM2EnM07JQ-it76sTvuybbe8Co8veSTx7J3ZED04JhDp-cuJRMQ-z7ItefyYn9FpUJgWSHf751jx2qSglvlcalRPTxtwmaW0dUJnTysmPV2tNGAcZvNrXDqAvbHYso-9yZelpkCVwivi18q8wBNxkO"/>
+</div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Formal Edit</span>
+</a>
+<!-- Category 3 -->
+<a class="group flex flex-col items-center space-y-md cursor-pointer" href="#">
+<div class="w-full aspect-[3/4] overflow-hidden bg-surface-container relative">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A detail shot of textured, intricately woven fabric with subtle ethnic patterns in muted earth tones and soft golds. The fabric is softly draped, catching delicate, warm natural light. The aesthetic is luxurious yet grounded, reflecting a modern interpretation of traditional craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5WLI_wCtxLfZFVfUGyr8Bm1IbXnTJ0ZDijunBRKpD27rYnSnz-No_wbt3RJNG5XbSakLO8fvFZ0jalDSbB8LMoEDQeCnT5RzNKWyvGWsx2tKL2CZvHDf8lHOuP12e4OZxPFYU61pYokrKXrY4QpSuaaJaMJ1iqWZFXe9uMbPEcBk4waeKZZc-ioVZJCgQdubmju5y-6HtT2Pg9NAZ1caG-0NoTRedQd4AsE_huIMaLDWtziikP7SlLzOmJKHT6ZKdRFr3bOBn4Hhd"/>
+</div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Ethnic Luxe</span>
+</a>
+<!-- Category 4 -->
+<a class="group flex flex-col items-center space-y-md cursor-pointer" href="#">
+<div class="w-full aspect-[3/4] overflow-hidden bg-surface-container relative">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A curated arrangement of minimalist wardrobe essentials: a sleek leather belt, a simple silver cuff, and a structured neutral-toned handbag. The items are placed on a stark, light-gray concrete plinth, shot with crisp, clear lighting that emphasizes geometric shapes and unadorned beauty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-8IJZu5LExsjkuhQ14ZyF2swV7t-QScPYWiBRamjQTDeHmVyx3tQ4gCDA5TUQZk-AA_8aY1lV3twww8hNAhD-LlNJHDfQQg0wFfwUkGfHp7OPf6vNqr-LNvURjV1r3Wq8oxADRFLl_cyq8v3rwmH4KPFtFbJAOlEcm2LNtMELtD9ITmNw9CPutKGYkDTPREMXk8ffkF6-Ypf-07J4eDvfbZhHeaCWZSB3pKDTMVDFNYfA9ySofXL3iJ0HexcQspWd-TZ7S4DWvn4N"/>
+</div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Minimalist Essentials</span>
+</a>
+</div>
+</div>
+</section>
+<!-- FEATURED PRODUCTS -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-xl md:py-[120px]">
+<div class="flex justify-between items-end mb-lg border-b border-outline-variant pb-md">
+<h2 class="font-headline-lg text-headline-lg text-primary">Featured Arrivals</h2>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors uppercase underline hidden md:block" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter gap-y-xl">
+<!-- Product 1 -->
+<div class="flex flex-col group">
+<div class="w-full aspect-[4/5] bg-surface-container mb-md overflow-hidden relative">
+<img class="object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90" data-alt="A product photography shot of a classic white linen shirt neatly folded on a pristine, light gray background. The lighting is bright and soft, casting subtle shadows that highlight the natural weave and lightweight texture of the fabric. The aesthetic is extremely clean and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIa0UoGnYZ7Bsg1lrO9Pj5jY39eb255ax8rGCu9NJ80Dy1g4Rz9mr_CyXoLugyYlMXAnqeHGlA1JwyTJ38Xx82RGOaa6Pa5Yl9sgcyrVd0xPynI56zNNcnCLiMc0E2sAdoYTUjO7TYmKX-EQ_HIn6YoKZ1flID5JSG5eRLbaxQ3qF3yDs5P2JNeGOYWv2WfNuxxn98DeEWn-9utgtm5FEYO5NXhAzgsEDvSRHUFoo0iG6sulyzoH2sp5ICYBu5CaW_F5pHseoQwYdW"/>
+</div>
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-primary text-xl">Classic Linen Shirt</h3>
+<span class="font-body-md text-body-md text-on-surface-variant">$45.00</span>
+</div>
+<button class="mt-auto w-full border border-primary text-primary font-button text-button uppercase py-sm hover:bg-primary hover:text-on-primary transition-colors">
+                        Add to Bag
+                    </button>
+</div>
+<!-- Product 2 -->
+<div class="flex flex-col group">
+<div class="w-full aspect-[4/5] bg-surface-container mb-md overflow-hidden relative">
+<img class="object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90" data-alt="A product shot of a flowing, off-white boho summer dress suspended seamlessly against a soft, warm-gray backdrop. The dress features delicate pleating and a relaxed silhouette. The lighting is airy and diffused, creating a serene, high-end catalog aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABqcSeVQAehMvWp8WnZbbglXC23PcMyEwGrP5wQpfjDICr7Mi4CIWnyby3HoBsmfvefj5d3Y1rQtAxe0k2fUkvhYlQ9bM_HEDxEMmXx4YK9_OQ9QlWEcnwS4Ly_sV0hDdzhvXV0LzOjb4Ij6YUUghe-KzQzOXJH2hYR98o1QUwl97q6gUJNPxDzQPFYukuueVKODNXvzSI4efMAbg3vuytTDB257Bxr9ISJP_88jj_NlrIRm_98Xx5lYJqzFxz1R4VFwcCIYSwpt7L"/>
+</div>
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-primary text-xl">Boho Summer Dress</h3>
+<span class="font-body-md text-body-md text-on-surface-variant">$65.00</span>
+</div>
+<button class="mt-auto w-full border border-primary text-primary font-button text-button uppercase py-sm hover:bg-primary hover:text-on-primary transition-colors">
+                        Add to Bag
+                    </button>
+</div>
+<!-- Product 3 -->
+<div class="flex flex-col group">
+<div class="w-full aspect-[4/5] bg-surface-container mb-md overflow-hidden relative">
+<img class="object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90" data-alt="A high-quality product image of tailored khaki chino pants presented flat on a clean white surface. The image highlights the crisp lines, precise stitching, and smooth texture of the cotton fabric. The overall mood is modern, structured, and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvlPhc_sOTh3qjHIKwrIlYeD69jv18x08wWGG5qABRLtvb4pYvWT1YAt7ofbGjZMocjyLSepnj1y6hORbqFxZo2c2m6JAJ8zF3IJ2c2bl8nLhqb2pqhgVhyteqs11ccIy_t6PHdbhsNCoKtRbCkDUsObcUJguN3Uin0iwJebUiqb0nm8FGU1inCWx0tCY0_-gYBQd0WxZE2CPlyL9xwYYPxJ7nofyfDwfrBa3uM-IUjZE_E_8WqBZ6bRze8OI_AkIhKyajc_1BJUhR"/>
+</div>
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-primary text-xl">Tailored Chino Pants</h3>
+<span class="font-body-md text-body-md text-on-surface-variant">$55.00</span>
+</div>
+<button class="mt-auto w-full border border-primary text-primary font-button text-button uppercase py-sm hover:bg-primary hover:text-on-primary transition-colors">
+                        Add to Bag
+                    </button>
+</div>
+<!-- Product 4 -->
+<div class="flex flex-col group">
+<div class="w-full aspect-[4/5] bg-surface-container mb-md overflow-hidden relative">
+<img class="object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90" data-alt="A sophisticated product shot of a pleated midi skirt in a soft charcoal gray. The skirt is styled on an invisible mannequin to show its shape and elegant drape against a stark white background. The lighting is precise, emphasizing the uniform geometry of the pleats." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiZqdwKTM3xziCZFfJPOgfPf-Mr1Q-OAVMrR0YMQUMVtQF-Tl9Y6lfk9955QgZatRKBr4pW3lKlEY6WW2GcRba-gCUo-MkfL_7YrvNvKy_goDymZhhcWVReqvoErpKcHEAUNUbqKNCSsQscZ9PoMGWqByB_9g2NHogWXpFT9ffLEQD1lQKRQc5llp2eMfNwhWtozlLQUoNsfPrkXAsRVKXK_0iLmEGxEPhp7EYxWpuaVIojriLLLSmdn-me4PhMeSbyFy3SSSVoQcd"/>
+</div>
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-headline-md text-primary text-xl">Pleated Midi Skirt</h3>
+<span class="font-body-md text-body-md text-on-surface-variant">$48.00</span>
+</div>
+<button class="mt-auto w-full border border-primary text-primary font-button text-button uppercase py-sm hover:bg-primary hover:text-on-primary transition-colors">
+                        Add to Bag
+                    </button>
+</div>
+</div>
+<div class="mt-xl text-center md:hidden">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors uppercase underline" href="#">View All Arrivals</a>
+</div>
+</section>
+<!-- TRUST FOOTER BLOCK (Pre-footer features) -->
+<section class="bg-surface-container-lowest border-t border-outline-variant py-lg">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-outline-variant">
+<div class="flex flex-col items-center md:items-start space-y-sm py-sm md:py-0 md:pr-lg">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="local_shipping">local_shipping</span>
+<h4 class="font-label-caps text-label-caps text-primary uppercase">Free Shipping</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Complimentary standard shipping on all orders over $150.</p>
+</div>
+<div class="flex flex-col items-center md:items-start space-y-sm py-sm md:py-0 md:px-lg">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="sync">sync</span>
+<h4 class="font-label-caps text-label-caps text-primary uppercase">Easy 30-Day Returns</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Not quite right? Return it within 30 days for a full refund.</p>
+</div>
+<div class="flex flex-col items-center md:items-start space-y-sm py-sm md:py-0 md:pl-lg">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="lock">lock</span>
+<h4 class="font-label-caps text-label-caps text-primary uppercase">100% Secure Checkout</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Your payment information is processed securely.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER (From JSON) -->
+<footer class="bg-surface-container dark:bg-primary-container w-full py-xl border-t border-outline-variant dark:border-outline">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Brand Column -->
+<div class="col-span-1 md:col-span-2 flex flex-col space-y-md">
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">Vibe &amp; Thread</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-container max-w-sm">
+                    Elevating everyday aesthetics through intentional design and sustainable practices.
+                </p>
+</div>
+<!-- Links Column -->
+<div class="col-span-1 flex flex-col space-y-sm">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed underline transition-colors duration-200 uppercase" href="#">Collections</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed underline transition-colors duration-200 uppercase" href="#">Sustainability</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed underline transition-colors duration-200 uppercase" href="#">Journal</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed underline transition-colors duration-200 uppercase" href="#">Shipping &amp; Returns</a>
+</div>
+<!-- Copyright Column -->
+<div class="col-span-1 flex flex-col justify-end md:text-right mt-lg md:mt-0">
+<span class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-container text-sm">
+                    © 2024 Vibe &amp; Thread. All rights reserved.
+                </span>
+</div>
+</div>
+</footer>
+</body></html>
