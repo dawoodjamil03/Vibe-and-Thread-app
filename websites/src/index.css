@@ -88,6 +88,15 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
 }
 
 /* Font-size tokens stored outside @theme to avoid Tailwind v4 --text-* namespace collision */

@@ -119,9 +119,17 @@ export default function ProductDetailPage() {
           {/* Size Selector */}
           {product.sizes && product.sizes.length > 0 && (
             <div className="pt-sm">
-              <span className="text-style-label-caps text-primary mb-sm block">
-                Size {selectedSize && <span className="text-secondary ml-xs">— {selectedSize}</span>}
-              </span>
+              <div className="flex justify-between items-center mb-sm">
+                <span className="text-style-label-caps text-primary">
+                  Size {selectedSize && <span className="text-secondary ml-xs">— {selectedSize}</span>}
+                </span>
+                <button 
+                  onClick={() => alert('Size Guide:\nS: 36" Chest\nM: 38" Chest\nL: 40" Chest\nXL: 42" Chest')}
+                  className="text-style-body-sm text-secondary underline hover:text-primary transition-colors cursor-pointer"
+                >
+                  Size Guide
+                </button>
+              </div>
               <div className="flex flex-wrap gap-sm">
                 {product.sizes.map((size) => (
                   <button
@@ -193,23 +201,44 @@ export default function ProductDetailPage() {
             </Link>
           )}
 
-          {/* Product Details */}
-          <div className="border-t border-outline-variant pt-md mt-sm">
-            <h3 className="text-style-label-caps text-primary mb-sm">Product Details</h3>
-            <ul className="space-y-xs">
-              {product.details.map((detail, i) => (
-                <li key={i} className="text-style-body-md text-on-surface-variant flex items-start gap-xs">
-                  <span className="material-symbols-outlined text-sm mt-1 text-secondary flex-shrink-0">check</span>
-                  {detail}
-                </li>
-              ))}
-            </ul>
+          {/* Accordions */}
+          <div className="border-t border-outline-variant mt-lg">
+            <details className="group border-b border-outline-variant" open>
+              <summary className="flex justify-between items-center font-medium cursor-pointer list-none py-md text-primary text-style-label-caps">
+                <span>Details &amp; Care</span>
+                <span className="transition group-open:rotate-180">
+                  <span className="material-symbols-outlined">expand_more</span>
+                </span>
+              </summary>
+              <div className="text-on-surface-variant text-style-body-md pb-md animate-fade-in">
+                <ul className="space-y-xs">
+                  {product.details.map((detail, i) => (
+                    <li key={i} className="flex items-start gap-xs">
+                      <span className="material-symbols-outlined text-sm mt-1 text-secondary flex-shrink-0">check</span>
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+            <details className="group border-b border-outline-variant">
+              <summary className="flex justify-between items-center font-medium cursor-pointer list-none py-md text-primary text-style-label-caps">
+                <span>Shipping &amp; Returns</span>
+                <span className="transition group-open:rotate-180">
+                  <span className="material-symbols-outlined">expand_more</span>
+                </span>
+              </summary>
+              <div className="text-on-surface-variant text-style-body-md pb-md animate-fade-in">
+                <p className="mb-2">Free standard shipping on all orders over $100.</p>
+                <p>We accept returns within 30 days of delivery. Items must be unworn and unwashed with tags attached.</p>
+              </div>
+            </details>
           </div>
 
           {/* Continue Shopping */}
           <button
             onClick={() => navigate(-1)}
-            className="mt-auto text-style-label-caps text-secondary hover:text-primary transition-colors cursor-pointer flex items-center gap-xs w-fit pt-md"
+            className="mt-lg text-style-label-caps text-secondary hover:text-primary transition-colors cursor-pointer flex items-center gap-xs w-fit"
           >
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             Continue Shopping
