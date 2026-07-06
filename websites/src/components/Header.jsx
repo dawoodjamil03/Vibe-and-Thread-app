@@ -108,7 +108,7 @@ export default function Header() {
                       className="flex items-center gap-md py-sm hover:bg-surface-container transition-colors text-left group cursor-pointer"
                     >
                       <div className="w-[40px] h-[50px] bg-surface-container overflow-hidden flex-shrink-0">
-                        {product.image && <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />}
+                        {product.image && <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" style={{ filter: product.filter }} />}
                       </div>
                       <div className="flex flex-col">
                         <span className="text-style-body-md font-medium text-primary group-hover:underline">{product.name}</span>

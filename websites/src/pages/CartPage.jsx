@@ -68,6 +68,7 @@ export default function CartPage() {
                         className="object-cover w-full h-full"
                         alt={item.name}
                         src={item.image}
+                        style={{ filter: item.filter }}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">

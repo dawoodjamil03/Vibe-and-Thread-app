@@ -26,6 +26,7 @@ export default function CollectionPage() {
       price: product.price,
       priceNum: product.priceNum,
       image: product.image,
+      filter: product.filter,
     });
     setAddedId(product.id);
     setTimeout(() => setAddedId(null), 1200);
@@ -88,6 +89,7 @@ export default function CollectionPage() {
                 className="absolute inset-0 object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                 alt={product.alt}
                 src={product.image}
+                style={{ filter: product.filter }}
               />
             </Link>
 

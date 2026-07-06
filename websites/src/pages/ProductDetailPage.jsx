@@ -39,6 +39,7 @@ export default function ProductDetailPage() {
       price: product.price,
       priceNum: product.priceNum,
       image: product.image,
+      filter: product.filter,
       size: selectedSize,
       quantity,
     });
@@ -86,6 +87,7 @@ export default function ProductDetailPage() {
               className="absolute inset-0 object-cover w-full h-full"
               alt={product.alt}
               src={product.image}
+              style={{ filter: product.filter }}
             />
           </div>
         </motion.div>
