@@ -1,272 +1,193 @@
 export const products = [
+  // Unstitched
   {
-    id: 'classic-linen-shirt',
-    name: 'Classic Linen Shirt',
+    id: 'unst-01',
+    name: 'Premium Egyptian Cotton',
+    category: 'unstitched',
+    categoryLabel: 'Unstitched Fabrics',
     price: '$45.00',
-    priceNum: 45,
-    category: 'mens',
-    categoryLabel: "Men's Collection",
-    description:
-      'Crafted from premium European flax linen, this timeless shirt features a relaxed fit with a clean spread collar. The natural breathability and soft hand feel make it your go-to for warm-weather layering or a standalone statement piece.',
-    details: [
-      '100% European Flax Linen',
-      'Relaxed fit, spread collar',
-      'Mother-of-pearl buttons',
-      'Machine washable, tumble dry low',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBIa0UoGnYZ7Bsg1lrO9Pj5jY39eb255ax8rGCu9NJ80Dy1g4Rz9mr_CyXoLugyYlMXAnqeHGlA1JwyTJ38Xx82RGOaa6Pa5Yl9sgcyrVd0xPynI56zNNcnCLiMc0E2sAdoYTUjO7TYmKX-EQ_HIn6YoKZ1flID5JSG5eRLbaxQ3qF3yDs5P2JNeGOYWv2WfNuxxn98DeEWn-9utgtm5FEYO5NXhAzgsEDvSRHUFoo0iG6sulyzoH2sp5ICYBu5CaW_F5pHseoQwYdW',
-    alt: 'A product photography shot of a classic white linen shirt',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBIa0UoGnYZ7Bsg1lrO9Pj5jY39eb255ax8rGCu9NJ80Dy1g4Rz9mr_CyXoLugyYlMXAnqeHGlA1JwyTJ38Xx82RGOaa6Pa5Yl9sgcyrVd0xPynI56zNNcnCLiMc0E2sAdoYTUjO7TYmKX-EQ_HIn6YoKZ1flID5JSG5eRLbaxQ3qF3yDs5P2JNeGOYWv2WfNuxxn98DeEWn-9utgtm5FEYO5NXhAzgsEDvSRHUFoo0iG6sulyzoH2sp5ICYBu5CaW_F5pHseoQwYdW',
-    ],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    priceNum: 45.00,
+    image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=800',
+    alt: 'Folded premium cotton fabric',
+    description: 'Experience unparalleled luxury with our 100% Egyptian Cotton unstitched fabric. Known for its breathability, subtle sheen, and supreme softness, this fabric ensures comfort throughout the day. Perfect for crafting a bespoke Kurta or Shalwar Kameez.',
+    sizes: ['4.5 Meters'],
+    details: ['100% Egyptian Cotton', 'Lightweight & Breathable', 'Shrink-resistant finish', 'Includes matching buttons']
   },
   {
-    id: 'boho-summer-dress',
-    name: 'Boho Summer Dress',
+    id: 'unst-02',
+    name: 'Classic Wash & Wear',
+    category: 'unstitched',
+    categoryLabel: 'Unstitched Fabrics',
+    price: '$35.00',
+    priceNum: 35.00,
+    image: 'https://images.unsplash.com/photo-1604136172384-a1e50868f0a0?auto=format&fit=crop&q=80&w=800',
+    alt: 'Rolls of wash and wear fabric',
+    description: 'Our signature Wash & Wear collection offers the ultimate convenience without compromising on style. The wrinkle-resistant blend maintains a crisp, fresh look all day, making it the ideal choice for everyday professional and casual wear.',
+    sizes: ['4.5 Meters'],
+    details: ['Premium Blended Fabric', 'Wrinkle-Resistant', 'Easy Iron Technology', 'All-season wear']
+  },
+  
+  // Kurta Pajama
+  {
+    id: 'kp-01',
+    name: 'Midnight Onyx Kurta Set',
+    category: 'kurta-pajama',
+    categoryLabel: 'Kurta Pajama',
+    price: '$85.00',
+    priceNum: 85.00,
+    image: 'https://images.unsplash.com/photo-1593030103066-0093718efeb9?auto=format&fit=crop&q=80&w=800',
+    alt: 'Man wearing a stylish dark ethnic suit',
+    description: 'A masterpiece of understated elegance. This deep midnight black Kurta Pajama set features a sleek mandarin collar, hidden placket, and perfectly tailored straight-cut trousers. Crafted from a soft cotton blend for maximum drape and comfort.',
+    sizes: ['S', 'M', 'L', 'XL'],
+    details: ['Premium Cotton Blend', 'Mandarin Collar', 'Includes matching trouser', 'Dry clean recommended']
+  },
+  {
+    id: 'kp-02',
+    name: 'Ivory Classic Kurta Set',
+    category: 'kurta-pajama',
+    categoryLabel: 'Kurta Pajama',
+    price: '$75.00',
+    priceNum: 75.00,
+    image: 'https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&q=80&w=800',
+    alt: 'Man in a classic white kurta',
+    description: 'The quintessential ivory white Kurta Pajama, an absolute wardrobe essential. Tailored with a relaxed yet refined fit, this set offers incredible breathability and a timeless aesthetic suitable for any formal or festive gathering.',
+    sizes: ['S', 'M', 'L', 'XL'],
+    details: ['100% Pure Cotton', 'Classic Fit', 'Breathable fabric', 'Machine washable on gentle']
+  },
+
+  // Waistcoats
+  {
+    id: 'wc-01',
+    name: 'Textured Charcoal Waistcoat',
+    category: 'waistcoats',
+    categoryLabel: 'Waistcoats',
     price: '$65.00',
-    priceNum: 65,
-    category: 'womens',
-    categoryLabel: "Women's Collection",
-    description:
-      'An effortlessly flowing silhouette in soft organic cotton. The subtle pleat detailing and relaxed off-shoulder cut channel laid-back bohemian elegance — perfect for sunlit afternoons and seaside evenings.',
-    details: [
-      '100% Organic Cotton',
-      'Relaxed off-shoulder neckline',
-      'Midi length with side pockets',
-      'Hand wash recommended',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuABqcSeVQAehMvWp8WnZbbglXC23PcMyEwGrP5wQpfjDICr7Mi4CIWnyby3HoBsmfvefj5d3Y1rQtAxe0k2fUkvhYlQ9bM_HEDxEMmXx4YK9_OQ9QlWEcnwS4Ly_sV0hDdzhvXV0LzOjb4Ij6YUUghe-KzQzOXJH2hYR98o1QUwl97q6gUJNPxDzQPFYukuueVKODNXvzSI4efMAbg3vuytTDB257Bxr9ISJP_88jj_NlrIRm_98Xx5lYJqzFxz1R4VFwcCIYSwpt7L',
-    alt: 'A product shot of a flowing, off-white boho summer dress',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuABqcSeVQAehMvWp8WnZbbglXC23PcMyEwGrP5wQpfjDICr7Mi4CIWnyby3HoBsmfvefj5d3Y1rQtAxe0k2fUkvhYlQ9bM_HEDxEMmXx4YK9_OQ9QlWEcnwS4Ly_sV0hDdzhvXV0LzOjb4Ij6YUUghe-KzQzOXJH2hYR98o1QUwl97q6gUJNPxDzQPFYukuueVKODNXvzSI4efMAbg3vuytTDB257Bxr9ISJP_88jj_NlrIRm_98Xx5lYJqzFxz1R4VFwcCIYSwpt7L',
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
+    priceNum: 65.00,
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&q=80&w=800',
+    alt: 'Tailored charcoal waistcoat',
+    description: 'Add a layer of sophistication to your traditional attire. This charcoal grey waistcoat features a subtle self-texture, a sleek band collar, and premium metallic buttons. The perfect complement to both light and dark Kurta Pajamas.',
+    sizes: ['S', 'M', 'L', 'XL'],
+    details: ['Textured TR Fabric', 'Premium Inner Lining', 'Metallic Buttons', 'Slim Fit Design']
   },
+
+  // Fragrance
   {
-    id: 'tailored-chino-pants',
-    name: 'Tailored Chino Pants',
+    id: 'frag-01',
+    name: 'Oud & Amber Signature',
+    category: 'fragrance',
+    categoryLabel: 'Fragrance',
     price: '$55.00',
-    priceNum: 55,
-    category: 'mens',
-    categoryLabel: "Men's Collection",
-    description:
-      'Precision-cut from stretch-blend cotton twill, these chinos strike the ideal balance between tailored structure and everyday comfort. The tapered silhouette and clean flat front transition seamlessly from office to evening.',
-    details: [
-      '97% Cotton, 3% Elastane twill',
-      'Slim tapered fit',
-      'Flat front, zip fly',
-      'Machine washable',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBvlPhc_sOTh3qjHIKwrIlYeD69jv18x08wWGG5qABRLtvb4pYvWT1YAt7ofbGjZMocjyLSepnj1y6hORbqFxZo2c2m6JAJ8zF3IJ2c2bl8nLhqb2pqhgVhyteqs11ccIy_t6PHdbhsNCoKtRbCkDUsObcUJguN3Uin0iwJebUiqb0nm8FGU1inCWx0tCY0_-gYBQd0WxZE2CPlyL9xwYYPxJ7nofyfDwfrBa3uM-IUjZE_E_8WqBZ6bRze8OI_AkIhKyajc_1BJUhR',
-    alt: 'A high-quality product image of tailored khaki chino pants',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBvlPhc_sOTh3qjHIKwrIlYeD69jv18x08wWGG5qABRLtvb4pYvWT1YAt7ofbGjZMocjyLSepnj1y6hORbqFxZo2c2m6JAJ8zF3IJ2c2bl8nLhqb2pqhgVhyteqs11ccIy_t6PHdbhsNCoKtRbCkDUsObcUJguN3Uin0iwJebUiqb0nm8FGU1inCWx0tCY0_-gYBQd0WxZE2CPlyL9xwYYPxJ7nofyfDwfrBa3uM-IUjZE_E_8WqBZ6bRze8OI_AkIhKyajc_1BJUhR',
-    ],
-    sizes: ['28', '30', '32', '34', '36'],
+    priceNum: 55.00,
+    image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800',
+    alt: 'Luxurious perfume bottle',
+    description: 'A bold, commanding fragrance crafted for the modern gentleman. Opening with warm notes of rich amber and settling into a deep, luxurious Oud base. Designed to last over 12 hours and leave a memorable trail.',
+    sizes: ['50ml', '100ml'],
+    details: ['Eau de Parfum', 'Top notes: Amber, Saffron', 'Base notes: Pure Oud, Musk', 'Lasts 12+ hours']
   },
   {
-    id: 'pleated-midi-skirt',
-    name: 'Pleated Midi Skirt',
-    price: '$48.00',
-    priceNum: 48,
-    category: 'womens',
-    categoryLabel: "Women's Collection",
-    description:
-      'Architectural pleating meets fluid movement in this midi-length skirt. The high-rise waistband and premium polyester blend create a polished silhouette that pairs effortlessly with knits, blouses, and minimalist tees alike.',
-    details: [
-      '100% Recycled Polyester',
-      'High-rise, elastic waistband',
-      'Midi length, accordion pleats',
-      'Dry clean only',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBiZqdwKTM3xziCZFfJPOgfPf-Mr1Q-OAVMrR0YMQUMVtQF-Tl9Y6lfk9955QgZatRKBr4pW3lKlEY6WW2GcRba-gCUo-MkfL_7YrvNvKy_goDymZhhcWVReqvoErpKcHEAUNUbqKNCSsQscZ9PoMGWqByB_9g2NHogWXpFT9ffLEQD1lQKRQc5llp2eMfNwhWtozlLQUoNsfPrkXAsRVKXK_0iLmEGxEPhp7EYxWpuaVIojriLLLSmdn-me4PhMeSbyFy3SSSVoQcd',
-    alt: 'A sophisticated product shot of a pleated midi skirt in a soft charcoal gray',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBiZqdwKTM3xziCZFfJPOgfPf-Mr1Q-OAVMrR0YMQUMVtQF-Tl9Y6lfk9955QgZatRKBr4pW3lKlEY6WW2GcRba-gCUo-MkfL_7YrvNvKy_goDymZhhcWVReqvoErpKcHEAUNUbqKNCSsQscZ9PoMGWqByB_9g2NHogWXpFT9ffLEQD1lQKRQc5llp2eMfNwhWtozlLQUoNsfPrkXAsRVKXK_0iLmEGxEPhp7EYxWpuaVIojriLLLSmdn-me4PhMeSbyFy3SSSVoQcd',
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
+    id: 'frag-02',
+    name: 'Citrus Wood Essence',
+    category: 'fragrance',
+    categoryLabel: 'Fragrance',
+    price: '$45.00',
+    priceNum: 45.00,
+    image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&q=80&w=800',
+    alt: 'Elegant cologne bottle',
+    description: 'Fresh, vibrant, and incredibly sophisticated. Citrus Wood Essence opens with a burst of Italian bergamot and transitions into a smooth, masculine cedarwood finish. The perfect everyday signature scent.',
+    sizes: ['50ml', '100ml'],
+    details: ['Eau de Parfum', 'Top notes: Bergamot, Lemon', 'Base notes: Cedarwood, Vetiver', 'Perfect for daily wear']
   },
+
+  // Accessories
   {
-    id: 'oversized-knit-cardigan',
-    name: 'Oversized Knit Cardigan',
-    price: '$72.00',
-    priceNum: 72,
-    category: 'womens',
-    categoryLabel: "Women's Collection",
-    description:
-      'A chunky-knit cardigan in a relaxed oversized silhouette. The dropped shoulders and ribbed cuffs create an effortlessly cozy look that layers beautifully over everything from slip dresses to simple tees.',
-    details: [
-      '70% Wool, 30% Alpaca blend',
-      'Oversized fit, dropped shoulders',
-      'Open front, no closure',
-      'Hand wash cold, lay flat to dry',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDC7-u8PXAwN-K30Jaw4QMWOPbTYnMNzmiZmxpDLomBZ98fH06btSl0MdnW6M1YQKCR_VzRUPXUIisUcoH_ljpEIXxMD6W3GuzC9QM_O-Xsmcej7Ofk06N7mSne-PsCjrXYJdAariX6ZEuWgX6ZR3SNlf-FOmx2SjQCshap8qf356wLVjl4ORSWP2k7WQiXTw66nnX50zCKottcBBUedSoqXiKQ8ufwbiovjtGIFVIouI_w2BWEFcMxz7PtKlLsX5_1yB-W_MWdTqpW',
-    alt: 'An oversized knit cardigan in a warm natural tone',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDC7-u8PXAwN-K30Jaw4QMWOPbTYnMNzmiZmxpDLomBZ98fH06btSl0MdnW6M1YQKCR_VzRUPXUIisUcoH_ljpEIXxMD6W3GuzC9QM_O-Xsmcej7Ofk06N7mSne-PsCjrXYJdAariX6ZEuWgX6ZR3SNlf-FOmx2SjQCshap8qf356wLVjl4ORSWP2k7WQiXTw66nnX50zCKottcBBUedSoqXiKQ8ufwbiovjtGIFVIouI_w2BWEFcMxz7PtKlLsX5_1yB-W_MWdTqpW',
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-  },
-  {
-    id: 'structured-blazer',
-    name: 'Structured Linen Blazer',
-    price: '$89.00',
-    priceNum: 89,
-    category: 'mens',
-    categoryLabel: "Men's Collection",
-    description:
-      'A contemporary take on the classic blazer, constructed from breathable linen with a slightly deconstructed interior for a relaxed drape. Patch pockets and a slim notch lapel bring editorial polish to casual tailoring.',
-    details: [
-      '100% Italian Linen',
-      'Slim fit, single-breasted',
-      'Patch pockets, working cuff buttons',
-      'Dry clean recommended',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCXuXOAbKCHd0jQlJdRIK0RsoL2l7oVpi56MNeXes_ESU6TkUmUfon8YY8-hn4gVH5IwQqDl7DzFZBa3F3jNDb_eIQx5_Jet1H6naSUpBYuvGYB2bASlakn2cTM2EnM07JQ-it76sTvuybbe8Co8veSTx7J3ZED04JhDp-cuJRMQ-z7ItefyYn9FpUJgWSHf751jx2qSglvlcalRPTxtwmaW0dUJnTysmPV2tNGAcZvNrXDqAvbHYso-9yZelpkCVwivi18q8wBNxkO',
-    alt: 'A structured linen blazer in dark charcoal',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCXuXOAbKCHd0jQlJdRIK0RsoL2l7oVpi56MNeXes_ESU6TkUmUfon8YY8-hn4gVH5IwQqDl7DzFZBa3F3jNDb_eIQx5_Jet1H6naSUpBYuvGYB2bASlakn2cTM2EnM07JQ-it76sTvuybbe8Co8veSTx7J3ZED04JhDp-cuJRMQ-z7ItefyYn9FpUJgWSHf751jx2qSglvlcalRPTxtwmaW0dUJnTysmPV2tNGAcZvNrXDqAvbHYso-9yZelpkCVwivi18q8wBNxkO',
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-  },
-  {
-    id: 'silk-camisole-top',
-    name: 'Silk Camisole Top',
-    price: '$38.00',
-    priceNum: 38,
-    category: 'womens',
-    categoryLabel: "Women's Collection",
-    description:
-      'A delicate silk camisole featuring adjustable spaghetti straps and a subtle cowl neckline. The luxurious Mulberry silk drapes beautifully — ideal as a standalone piece or layered beneath blazers.',
-    details: [
-      '100% Mulberry Silk',
-      'Adjustable spaghetti straps',
-      'Cowl neckline',
-      'Hand wash only',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC5WLI_wCtxLfZFVfUGyr8Bm1IbXnTJ0ZDijunBRKpD27rYnSnz-No_wbt3RJNG5XbSakLO8fvFZ0jalDSbB8LMoEDQeCnT5RzNKWyvGWsx2tKL2CZvHDf8lHOuP12e4OZxPFYU61pYokrKXrY4QpSuaaJaMJ1iqWZFXe9uMbPEcBk4waeKZZc-ioVZJCgQdubmju5y-6HtT2Pg9NAZ1caG-0NoTRedQd4AsE_huIMaLDWtziikP7SlLzOmJKHT6ZKdRFr3bOBn4Hhd',
-    alt: 'A silk camisole top in a warm neutral tone',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC5WLI_wCtxLfZFVfUGyr8Bm1IbXnTJ0ZDijunBRKpD27rYnSnz-No_wbt3RJNG5XbSakLO8fvFZ0jalDSbB8LMoEDQeCnT5RzNKWyvGWsx2tKL2CZvHDf8lHOuP12e4OZxPFYU61pYokrKXrY4QpSuaaJaMJ1iqWZFXe9uMbPEcBk4waeKZZc-ioVZJCgQdubmju5y-6HtT2Pg9NAZ1caG-0NoTRedQd4AsE_huIMaLDWtziikP7SlLzOmJKHT6ZKdRFr3bOBn4Hhd',
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-  },
-  {
-    id: 'cotton-crew-tee',
-    name: 'Essential Cotton Crew Tee',
-    price: '$28.00',
-    priceNum: 28,
-    category: 'mens',
-    categoryLabel: "Men's Collection",
-    description:
-      'The foundational wardrobe piece, reimagined. Super-soft Supima cotton, garment-dyed for a lived-in finish. The relaxed crew neck and slightly elongated hem make this far more than just a basic tee.',
-    details: [
-      '100% Supima Cotton',
-      'Relaxed fit, crew neck',
-      'Garment-dyed finish',
-      'Machine washable',
-    ],
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB-8IJZu5LExsjkuhQ14ZyF2swV7t-QScPYWiBRamjQTDeHmVyx3tQ4gCDA5TUQZk-AA_8aY1lV3twww8hNAhD-LlNJHDfQQg0wFfwUkGfHp7OPf6vNqr-LNvURjV1r3Wq8oxADRFLl_cyq8v3rwmH4KPFtFbJAOlEcm2LNtMELtD9ITmNw9CPutKGYkDTPREMXk8ffkF6-Ypf-07J4eDvfbZhHeaCWZSB3pKDTMVDFNYfA9ySofXL3iJ0HexcQspWd-TZ7S4DWvn4N',
-    alt: 'An essential cotton crew tee in off-white',
-    gallery: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB-8IJZu5LExsjkuhQ14ZyF2swV7t-QScPYWiBRamjQTDeHmVyx3tQ4gCDA5TUQZk-AA_8aY1lV3twww8hNAhD-LlNJHDfQQg0wFfwUkGfHp7OPf6vNqr-LNvURjV1r3Wq8oxADRFLl_cyq8v3rwmH4KPFtFbJAOlEcm2LNtMELtD9ITmNw9CPutKGYkDTPREMXk8ffkF6-Ypf-07J4eDvfbZhHeaCWZSB3pKDTMVDFNYfA9ySofXL3iJ0HexcQspWd-TZ7S4DWvn4N',
-    ],
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-  },
+    id: 'acc-01',
+    name: 'Onyx Enamel Cufflinks',
+    category: 'accessories',
+    categoryLabel: 'Accessories',
+    price: '$25.00',
+    priceNum: 25.00,
+    image: 'https://images.unsplash.com/photo-1559564104-e3fb4b3e83b4?auto=format&fit=crop&q=80&w=800',
+    alt: 'Luxury cufflinks',
+    description: 'Complete your formal ethnic ensemble with these striking Onyx Enamel Cufflinks. Crafted from high-grade stainless steel with a polished silver finish and a deep black onyx inlay.',
+    sizes: ['One Size'],
+    details: ['Stainless Steel', 'Black Onyx Enamel', 'T-bar fastening', 'Comes in a luxury gift box']
+  }
 ];
+
+export const collectionsInfo = {
+  unstitched: {
+    name: 'Unstitched Fabrics',
+    description: 'Premium quality unstitched fabrics crafted from the finest threads. Tailor your perfect fit with our exclusive cotton, wash & wear, and khaddar collections.',
+  },
+  'kurta-pajama': {
+    name: 'Kurta Pajama',
+    description: 'Traditional elegance meets modern tailoring. Explore our ready-to-wear Kurta Pajama sets designed for everyday comfort and festive occasions.',
+  },
+  waistcoats: {
+    name: 'Waistcoats',
+    description: 'Elevate your ethnic attire with our meticulously tailored waistcoats. Featuring classic textures, intricate details, and a timeless silhouette.',
+  },
+  fragrance: {
+    name: 'Fragrance',
+    description: 'Signature scents that define your presence. Discover our curated collection of long-lasting, captivating perfumes and attars.',
+  },
+  accessories: {
+    name: 'Accessories',
+    description: 'The perfect finishing touches. From elegant cufflinks to premium leather goods, complete your look with our crafted accessories.',
+  }
+};
 
 export const categories = [
   {
-    id: 'casual-wear',
-    slug: 'casual-wear',
-    name: 'Casual Wear',
-    description: 'Effortless everyday pieces designed for comfort and style.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDC7-u8PXAwN-K30Jaw4QMWOPbTYnMNzmiZmxpDLomBZ98fH06btSl0MdnW6M1YQKCR_VzRUPXUIisUcoH_ljpEIXxMD6W3GuzC9QM_O-Xsmcej7Ofk06N7mSne-PsCjrXYJdAariX6ZEuWgX6ZR3SNlf-FOmx2SjQCshap8qf356wLVjl4ORSWP2k7WQiXTw66nnX50zCKottcBBUedSoqXiKQ8ufwbiovjtGIFVIouI_w2BWEFcMxz7PtKlLsX5_1yB-W_MWdTqpW',
-    alt: 'A meticulously styled flat lay of minimalist casual wear',
-    filter: (p) => ['classic-linen-shirt', 'cotton-crew-tee', 'tailored-chino-pants'].includes(p.id),
+    id: 'unstitched',
+    slug: 'unstitched',
+    name: 'Unstitched',
+    description: 'Premium quality unstitched fabrics.',
+    image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=800',
+    alt: 'Unstitched fabrics',
+    filter: (p) => p.category === 'unstitched',
   },
   {
-    id: 'formal-edit',
-    slug: 'formal-edit',
-    name: 'Formal Edit',
-    description: 'Refined tailoring for moments that matter.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCXuXOAbKCHd0jQlJdRIK0RsoL2l7oVpi56MNeXes_ESU6TkUmUfon8YY8-hn4gVH5IwQqDl7DzFZBa3F3jNDb_eIQx5_Jet1H6naSUpBYuvGYB2bASlakn2cTM2EnM07JQ-it76sTvuybbe8Co8veSTx7J3ZED04JhDp-cuJRMQ-z7ItefyYn9FpUJgWSHf751jx2qSglvlcalRPTxtwmaW0dUJnTysmPV2tNGAcZvNrXDqAvbHYso-9yZelpkCVwivi18q8wBNxkO',
-    alt: 'A close-up architectural shot of a meticulously tailored charcoal blazer',
-    filter: (p) => ['structured-blazer', 'tailored-chino-pants', 'pleated-midi-skirt'].includes(p.id),
+    id: 'kurta-pajama',
+    slug: 'kurta-pajama',
+    name: 'Kurta Pajama',
+    description: 'Traditional elegance meets modern tailoring.',
+    image: 'https://images.unsplash.com/photo-1593030103066-0093718efeb9?auto=format&fit=crop&q=80&w=800',
+    alt: 'Kurta Pajama',
+    filter: (p) => p.category === 'kurta-pajama',
   },
   {
-    id: 'ethnic-luxe',
-    slug: 'ethnic-luxe',
-    name: 'Ethnic Luxe',
-    description: 'Heritage-inspired textures meet contemporary silhouettes.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC5WLI_wCtxLfZFVfUGyr8Bm1IbXnTJ0ZDijunBRKpD27rYnSnz-No_wbt3RJNG5XbSakLO8fvFZ0jalDSbB8LMoEDQeCnT5RzNKWyvGWsx2tKL2CZvHDf8lHOuP12e4OZxPFYU61pYokrKXrY4QpSuaaJaMJ1iqWZFXe9uMbPEcBk4waeKZZc-ioVZJCgQdubmju5y-6HtT2Pg9NAZ1caG-0NoTRedQd4AsE_huIMaLDWtziikP7SlLzOmJKHT6ZKdRFr3bOBn4Hhd',
-    alt: 'A detail shot of textured, intricately woven fabric with subtle ethnic patterns',
-    filter: (p) => ['silk-camisole-top', 'oversized-knit-cardigan', 'boho-summer-dress'].includes(p.id),
+    id: 'waistcoats',
+    slug: 'waistcoats',
+    name: 'Waistcoats',
+    description: 'Elevate your ethnic attire with our meticulously tailored waistcoats.',
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&q=80&w=800',
+    alt: 'Waistcoats',
+    filter: (p) => p.category === 'waistcoats',
   },
   {
-    id: 'minimalist-essentials',
-    slug: 'minimalist-essentials',
-    name: 'Minimalist Essentials',
-    description: 'Pared-back staples that form the backbone of your wardrobe.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB-8IJZu5LExsjkuhQ14ZyF2swV7t-QScPYWiBRamjQTDeHmVyx3tQ4gCDA5TUQZk-AA_8aY1lV3twww8hNAhD-LlNJHDfQQg0wFfwUkGfHp7OPf6vNqr-LNvURjV1r3Wq8oxADRFLl_cyq8v3rwmH4KPFtFbJAOlEcm2LNtMELtD9ITmNw9CPutKGYkDTPREMXk8ffkF6-Ypf-07J4eDvfbZhHeaCWZSB3pKDTMVDFNYfA9ySofXL3iJ0HexcQspWd-TZ7S4DWvn4N',
-    alt: 'A curated arrangement of minimalist wardrobe essentials',
-    filter: (p) => ['cotton-crew-tee', 'classic-linen-shirt', 'tailored-chino-pants', 'silk-camisole-top'].includes(p.id),
+    id: 'fragrance',
+    slug: 'fragrance',
+    name: 'Fragrance',
+    description: 'Signature scents that define your presence.',
+    image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800',
+    alt: 'Fragrance',
+    filter: (p) => p.category === 'fragrance',
   },
 ];
-
-/** Special "virtual" collections for men's / women's */
-export const genderCollections = {
-  mens: {
-    name: "Men's Collection",
-    description: 'Intentional menswear designed for modern living.',
-    filter: (p) => p.category === 'mens',
-  },
-  womens: {
-    name: "Women's Collection",
-    description: 'Contemporary womenswear with effortless elegance.',
-    filter: (p) => p.category === 'womens',
-  },
-};
 
 export function getProductById(id) {
   return products.find((p) => p.id === id);
 }
 
 export function getProductsByCollection(slug) {
-  // Check gender collections first
-  if (genderCollections[slug]) {
-    return products.filter(genderCollections[slug].filter);
-  }
-  // Then category collections
-  const cat = categories.find((c) => c.slug === slug);
-  if (cat) {
-    return products.filter(cat.filter);
-  }
-  // Fallback: "new-arrivals" = all products
-  return products;
+  if (slug === 'new-arrivals') return products;
+  return products.filter((p) => p.category === slug);
 }
 
 export function getCollectionInfo(slug) {
-  if (genderCollections[slug]) {
-    return genderCollections[slug];
-  }
-  const cat = categories.find((c) => c.slug === slug);
-  if (cat) {
-    return { name: cat.name, description: cat.description };
+  if (collectionsInfo[slug]) {
+    return collectionsInfo[slug];
   }
   return { name: 'New Arrivals', description: 'The latest additions to our collection.' };
 }

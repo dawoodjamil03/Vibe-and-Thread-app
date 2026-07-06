@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 export default function CartPage() {
-  const { cartItems, addToCart, removeFromCart, cartCount } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, cartCount } = useCart();
+  const navigate = useNavigate();
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.priceNum * item.quantity, 0);
   const freeShippingThreshold = 150;
@@ -101,13 +102,9 @@ export default function CartPage() {
                       <button
                         onClick={() => {
                           if (item.quantity <= 1) {
-                            removeFromCart(item.id);
+                            removeFromCart(item.id, item.size);
                           } else {
-                            // Decrease quantity by removing and re-adding with lower count
-                            removeFromCart(item.id);
-                            for (let i = 0; i < item.quantity - 1; i++) {
-                              addToCart({ ...item, quantity: 1 });
-                            }
+                            updateQuantity(item.id, item.size, item.quantity - 1);
                           }
                         }}
                         className="w-[36px] h-[36px] flex items-center justify-center text-primary hover:bg-surface-container transition-colors cursor-pointer"
@@ -119,7 +116,7 @@ export default function CartPage() {
                         {item.quantity}
                       </span>
                       <button
-                        onClick={() => addToCart({ ...item, quantity: 1 })}
+                        onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
                         className="w-[36px] h-[36px] flex items-center justify-center text-primary hover:bg-surface-container transition-colors cursor-pointer"
                         aria-label="Increase quantity"
                       >
@@ -129,7 +126,7 @@ export default function CartPage() {
 
                     {/* Remove */}
                     <button
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item.id, item.size)}
                       className="text-sm text-secondary hover:text-error transition-colors cursor-pointer flex items-center gap-1"
                     >
                       <span className="material-symbols-outlined text-lg">delete</span>
@@ -190,7 +187,10 @@ export default function CartPage() {
               <span className="text-primary">${subtotal.toFixed(2)}</span>
             </div>
 
-            <button className="w-full py-md text-style-button bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 cursor-pointer">
+            <button 
+              onClick={() => navigate('/checkout')}
+              className="w-full py-md text-style-button bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 cursor-pointer"
+            >
               Proceed to Checkout
             </button>
 

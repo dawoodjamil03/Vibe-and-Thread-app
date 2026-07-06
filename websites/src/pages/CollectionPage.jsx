@@ -8,8 +8,16 @@ export default function CollectionPage() {
   const { addToCart } = useCart();
   const [addedId, setAddedId] = useState(null);
 
+  const [sortBy, setSortBy] = useState('featured');
+
   const collectionProducts = getProductsByCollection(slug);
   const info = getCollectionInfo(slug);
+
+  const sortedProducts = [...collectionProducts].sort((a, b) => {
+    if (sortBy === 'price-low') return a.priceNum - b.priceNum;
+    if (sortBy === 'price-high') return b.priceNum - a.priceNum;
+    return 0; // featured
+  });
 
   const handleAddToCart = (product) => {
     addToCart({
@@ -36,22 +44,41 @@ export default function CollectionPage() {
         </ol>
       </nav>
 
-      {/* Collection Header */}
-      <div className="mb-xl">
-        <h1 className="text-style-headline-xl-mobile md:text-style-headline-lg text-primary mb-md">
-          {info.name}
-        </h1>
-        <p className="text-style-body-lg text-on-surface-variant max-w-[600px]">
-          {info.description}
-        </p>
-        <div className="mt-md text-style-label-caps text-secondary">
-          {collectionProducts.length} {collectionProducts.length === 1 ? 'product' : 'products'}
+      {/* Collection Header & Controls */}
+      <div className="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-lg">
+        <div>
+          <h1 className="text-style-headline-xl-mobile md:text-style-headline-lg text-primary mb-md">
+            {info.name}
+          </h1>
+          <p className="text-style-body-lg text-on-surface-variant max-w-[600px]">
+            {info.description}
+          </p>
+          <div className="mt-md text-style-label-caps text-secondary">
+            {collectionProducts.length} {collectionProducts.length === 1 ? 'product' : 'products'}
+          </div>
         </div>
+
+        {/* Sort Dropdown */}
+        {collectionProducts.length > 0 && (
+          <div className="flex items-center gap-sm">
+            <label htmlFor="sort-by" className="text-style-label-caps text-secondary">Sort by:</label>
+            <select
+              id="sort-by"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-surface-container border border-outline-variant text-style-body-md text-primary py-xs px-sm outline-none focus:border-primary cursor-pointer"
+            >
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+        )}
       </div>
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter gap-y-xl">
-        {collectionProducts.map((product) => (
+        {sortedProducts.map((product) => (
           <div key={product.id} className="flex flex-col group">
             <Link
               to={`/product/${product.id}`}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { getProductById } from '../data/products';
+import { motion } from 'framer-motion';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -37,6 +38,7 @@ export default function ProductDetailPage() {
       name: product.name,
       price: product.price,
       priceNum: product.priceNum,
+      image: product.image,
       size: selectedSize,
       quantity,
     });
@@ -45,7 +47,12 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <section className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-lg md:py-xl">
+    <motion.section 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-lg md:py-xl"
+    >
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="mb-lg">
         <ol className="flex items-center gap-2 text-sm text-on-surface-variant">
@@ -55,7 +62,7 @@ export default function ProductDetailPage() {
           <li><span className="material-symbols-outlined text-sm">chevron_right</span></li>
           <li>
             <Link
-              to={`/collections/${product.category === 'mens' ? 'mens' : 'womens'}`}
+              to={`/collections/${product.category}`}
               className="hover:text-primary transition-colors"
             >
               {product.categoryLabel}
@@ -68,7 +75,12 @@ export default function ProductDetailPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
         {/* Product Image */}
-        <div className="md:col-span-7">
+        <motion.div 
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="md:col-span-7"
+        >
           <div className="aspect-[4/5] bg-surface-container overflow-hidden relative">
             <img
               className="absolute inset-0 object-cover w-full h-full"
@@ -76,13 +88,18 @@ export default function ProductDetailPage() {
               src={product.image}
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Product Info */}
-        <div className="md:col-span-5 flex flex-col gap-md pt-sm">
+        <motion.div 
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="md:col-span-5 flex flex-col gap-md pt-sm"
+        >
           {/* Category label */}
           <Link
-            to={`/collections/${product.category === 'mens' ? 'mens' : 'womens'}`}
+            to={`/collections/${product.category}`}
             className="text-style-label-caps text-secondary hover:text-primary transition-colors w-fit"
           >
             {product.categoryLabel}
@@ -197,8 +214,8 @@ export default function ProductDetailPage() {
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             Continue Shopping
           </button>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -1,30 +1,64 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { useToast } from './ToastContext';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+  const { addToast } = useToast();
+
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const saved = localStorage.getItem('vibe_thread_cart');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('vibe_thread_cart', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = useCallback((product) => {
     setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find((item) => item.id === product.id && item.size === product.size);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          (item.id === product.id && item.size === product.size) ? { ...item, quantity: item.quantity + (product.quantity || 1) } : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: product.quantity || 1 }];
     });
+    addToast(`${product.name} added to bag`, 'success');
+  }, [addToast]);
+
+  const removeFromCart = useCallback((productId, size = null) => {
+    setCartItems((prev) => {
+      const itemToRemove = prev.find(item => item.id === productId && (size === null || item.size === size));
+      if (itemToRemove) {
+        addToast(`${itemToRemove.name} removed`, 'info');
+      }
+      return prev.filter((item) => !(item.id === productId && (size === null || item.size === size)));
+    });
+  }, [addToast]);
+
+  const updateQuantity = useCallback((productId, size, newQuantity) => {
+    if (newQuantity < 1) return;
+    setCartItems((prev) => 
+      prev.map((item) => 
+        (item.id === productId && item.size === size) ? { ...item, quantity: newQuantity } : item
+      )
+    );
   }, []);
 
-  const removeFromCart = useCallback((productId) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== productId));
+  const clearCart = useCallback(() => {
+    setCartItems([]);
   }, []);
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, cartCount }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartCount }}>
       {children}
     </CartContext.Provider>
   );
