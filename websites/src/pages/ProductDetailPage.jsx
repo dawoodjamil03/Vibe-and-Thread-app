@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import { getProductById } from '../data/products';
 import { motion } from 'framer-motion';
 
@@ -8,6 +9,7 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const product = getProductById(id);
 
   const [selectedSize, setSelectedSize] = useState(null);
@@ -46,6 +48,8 @@ export default function ProductDetailPage() {
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   };
+
+  const isWished = isInWishlist(product.id);
 
   return (
     <motion.section 
@@ -107,9 +111,23 @@ export default function ProductDetailPage() {
             {product.categoryLabel}
           </Link>
 
-          <h1 className="font-headline text-3xl md:text-4xl text-primary leading-tight">
-            {product.name}
-          </h1>
+          <div className="flex justify-between items-start gap-4">
+            <h1 className="font-headline text-3xl md:text-4xl text-primary leading-tight">
+              {product.name}
+            </h1>
+            <button
+              onClick={() => toggleWishlist(product)}
+              className={`text-primary hover:scale-110 transition-transform cursor-pointer ${isWished ? 'text-error' : ''}`}
+              aria-label="Toggle Wishlist"
+            >
+              <span 
+                className="material-symbols-outlined text-3xl"
+                style={isWished ? { fontVariationSettings: "'FILL' 1" } : { fontVariationSettings: "'FILL' 0" }}
+              >
+                favorite
+              </span>
+            </button>
+          </div>
 
           <span className="text-style-body-lg text-on-surface-variant">{product.price}</span>
 
@@ -231,7 +249,7 @@ export default function ProductDetailPage() {
                 </span>
               </summary>
               <div className="text-on-surface-variant text-style-body-md pb-md animate-fade-in">
-                <p className="mb-2">Free standard shipping on all orders over $100.</p>
+                <p className="mb-2">Free standard shipping on all orders over Rs. 5000.</p>
                 <p>We accept returns within 30 days of delivery. Items must be unworn and unwashed with tags attached.</p>
               </div>
             </details>

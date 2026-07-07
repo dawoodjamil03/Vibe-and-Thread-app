@@ -3,7 +3,7 @@ const trustItems = [
     id: 'free-shipping',
     icon: 'local_shipping',
     title: 'Free Shipping',
-    description: 'Complimentary standard shipping on all orders over $150.',
+    description: 'Complimentary standard shipping on all orders over Rs. 5000.',
   },
   {
     id: 'easy-returns',

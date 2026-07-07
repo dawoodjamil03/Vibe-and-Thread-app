@@ -6,11 +6,11 @@ export default function CartPage() {
   const navigate = useNavigate();
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.priceNum * item.quantity, 0);
-  const freeShippingThreshold = 150;
+  const freeShippingThreshold = 1000;
   const shippingMessage =
     subtotal >= freeShippingThreshold
       ? 'You qualify for free shipping!'
-      : `Add $${(freeShippingThreshold - subtotal).toFixed(2)} more for free shipping`;
+      : `Add Rs. ${(freeShippingThreshold - subtotal).toLocaleString()} more for free shipping`;
 
   if (cartItems.length === 0) {
     return (
@@ -93,7 +93,7 @@ export default function CartPage() {
                       )}
                     </div>
                     <span className="text-style-body-md text-primary flex-shrink-0 font-medium">
-                      ${(item.priceNum * item.quantity).toFixed(2)}
+                      Rs. {(item.priceNum * item.quantity).toLocaleString()}
                     </span>
                   </div>
 
@@ -157,7 +157,7 @@ export default function CartPage() {
             <div className="space-y-sm border-b border-outline-variant pb-md mb-md">
               <div className="flex justify-between text-style-body-md">
                 <span className="text-on-surface-variant">Subtotal</span>
-                <span className="text-primary">${subtotal.toFixed(2)}</span>
+                <span className="text-primary">Rs. {subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-style-body-md">
                 <span className="text-on-surface-variant">Shipping</span>
@@ -185,10 +185,10 @@ export default function CartPage() {
 
             <div className="flex justify-between text-style-body-lg font-medium border-t border-outline-variant pt-md mb-lg">
               <span className="text-primary">Estimated Total</span>
-              <span className="text-primary">${subtotal.toFixed(2)}</span>
+              <span className="text-primary">Rs. {subtotal.toLocaleString()}</span>
             </div>
 
-            <button 
+            <button
               onClick={() => navigate('/checkout')}
               className="w-full py-md text-style-button bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 cursor-pointer"
             >
