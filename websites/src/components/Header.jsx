@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { products } from '../data/products';
+import { products, categories } from '../data/products';
 
 export default function Header() {
   const { cartCount } = useCart();
@@ -13,6 +13,9 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const searchInputRef = useRef(null);
+  
+  // Scroll Spy state for Home Page
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     if (searchOpen && searchInputRef.current) {
@@ -22,25 +25,65 @@ export default function Header() {
     }
   }, [searchOpen]);
 
+  // Scroll Spy Logic
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
+    const handleScroll = () => {
+      let currentSection = 'home';
+      // Add a slight offset for the header height
+      const scrollPosition = window.scrollY + 100;
+
+      categories.forEach(category => {
+        const element = document.getElementById(`category-${category.slug}`);
+        if (element) {
+          const { top, bottom } = element.getBoundingClientRect();
+          // Check if element is in the upper half of the viewport
+          if (top <= 200 && bottom >= 200) {
+            currentSection = category.slug;
+          }
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname]);
+
   const searchResults = searchQuery.trim() === '' 
     ? [] 
     : products.filter(p => 
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
         p.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.description.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 5); // Show max 5 results
+      ).slice(0, 5);
 
-  const navLinkClass = ({ isActive }) =>
-    `transition-opacity duration-200 ${
-      isActive
+  const getNavLinkClass = (slug, isActive) => {
+    // If we are on home page, use the scroll spy active section.
+    // If not, use the React Router isActive.
+    const isCurrentlyActive = (location.pathname === '/' && activeSection === slug) || isActive;
+    
+    return `transition-opacity duration-200 ${
+      isCurrentlyActive
         ? 'text-primary border-b border-primary pb-1 font-semibold'
         : 'text-secondary hover:opacity-70'
     }`;
+  };
 
-  const mobileNavLinkClass = ({ isActive }) =>
-    `py-xs transition-opacity duration-200 ${
-      isActive ? 'text-primary font-semibold' : 'text-secondary hover:opacity-70'
+  const getMobileNavLinkClass = (slug, isActive) => {
+    const isCurrentlyActive = (location.pathname === '/' && activeSection === slug) || isActive;
+    return `py-xs transition-opacity duration-200 ${
+      isCurrentlyActive ? 'text-primary font-semibold' : 'text-secondary hover:opacity-70'
     }`;
+  };
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
@@ -108,11 +151,11 @@ export default function Header() {
                       className="flex items-center gap-md py-sm hover:bg-surface-container transition-colors text-left group cursor-pointer"
                     >
                       <div className="w-[40px] h-[50px] bg-surface-container overflow-hidden flex-shrink-0">
-                        {product.image && <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" style={{ filter: product.filter }} />}
+                        {product.image && <img src={product.image} style={{ filter: product.filter }} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />}
                       </div>
                       <div className="flex flex-col">
                         <span className="text-style-body-md font-medium text-primary group-hover:underline">{product.name}</span>
-                        <span className="text-sm text-secondary">{product.price}</span>
+                        <span className="text-sm text-secondary">Rs. {product.priceNum.toLocaleString()}</span>
                       </div>
                     </button>
                   ))}
@@ -155,24 +198,14 @@ export default function Header() {
 
         {/* Navigation Links (Desktop) */}
         <nav className="hidden lg:flex space-x-md text-style-label-caps">
-          <NavLink className={navLinkClass} to="/">
+          <NavLink className={({ isActive }) => getNavLinkClass('home', isActive)} to="/">
             Home
           </NavLink>
-          <NavLink className={navLinkClass} to="/collections/unstitched">
-            Unstitched
-          </NavLink>
-          <NavLink className={navLinkClass} to="/collections/kurta-pajama">
-            Kurta Pajama
-          </NavLink>
-          <NavLink className={navLinkClass} to="/collections/waistcoats">
-            Waistcoats
-          </NavLink>
-          <NavLink className={navLinkClass} to="/collections/fragrance">
-            Fragrance
-          </NavLink>
-          <NavLink className={navLinkClass} to="/collections/accessories">
-            Accessories
-          </NavLink>
+          {categories.map(cat => (
+            <NavLink key={cat.id} className={({ isActive }) => getNavLinkClass(cat.slug, isActive)} to={`/collections/${cat.slug}`}>
+              {cat.name}
+            </NavLink>
+          ))}
         </nav>
 
         {/* Trailing Icons */}
@@ -214,28 +247,18 @@ export default function Header() {
       {/* Mobile Navigation Menu */}
       <div
         className={`lg:hidden bg-surface-container-lowest border-t border-outline-variant overflow-hidden transition-all duration-300 ${
-          mobileMenuOpen ? 'max-h-[400px] py-sm' : 'max-h-0'
+          mobileMenuOpen ? 'max-h-[500px] py-sm' : 'max-h-0'
         }`}
       >
         <nav className="flex flex-col space-y-sm px-margin-mobile text-style-label-caps">
-          <NavLink className={mobileNavLinkClass} to="/" onClick={closeMobileMenu}>
+          <NavLink className={({ isActive }) => getMobileNavLinkClass('home', isActive)} to="/" onClick={closeMobileMenu}>
             Home
           </NavLink>
-          <NavLink className={mobileNavLinkClass} to="/collections/unstitched" onClick={closeMobileMenu}>
-            Unstitched
-          </NavLink>
-          <NavLink className={mobileNavLinkClass} to="/collections/kurta-pajama" onClick={closeMobileMenu}>
-            Kurta Pajama
-          </NavLink>
-          <NavLink className={mobileNavLinkClass} to="/collections/waistcoats" onClick={closeMobileMenu}>
-            Waistcoats
-          </NavLink>
-          <NavLink className={mobileNavLinkClass} to="/collections/fragrance" onClick={closeMobileMenu}>
-            Fragrance
-          </NavLink>
-          <NavLink className={mobileNavLinkClass} to="/collections/accessories" onClick={closeMobileMenu}>
-            Accessories
-          </NavLink>
+          {categories.map(cat => (
+            <NavLink key={cat.id} className={({ isActive }) => getMobileNavLinkClass(cat.slug, isActive)} to={`/collections/${cat.slug}`} onClick={closeMobileMenu}>
+              {cat.name}
+            </NavLink>
+          ))}
           
           <div className="flex items-center gap-md pt-md mt-sm border-t border-outline-variant">
             <button
