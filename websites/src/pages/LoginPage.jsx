@@ -20,14 +20,19 @@ export default function LoginPage() {
     setError('');
     setSubmitting(true);
 
-    const action = isSignup ? signup : login;
-    const { error: authError } = await action(email, password);
+    try {
+      const action = isSignup ? signup : login;
+      const { error: authError } = await action(email, password);
 
-    setSubmitting(false);
-    if (authError) {
-      setError(authError);
-    } else {
-      navigate(from, { replace: true });
+      if (authError) {
+        setError(authError);
+      } else {
+        navigate(from, { replace: true });
+      }
+    } catch (err) {
+      setError(err?.message || 'Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 

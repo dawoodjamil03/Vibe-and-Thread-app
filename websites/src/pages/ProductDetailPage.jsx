@@ -15,6 +15,16 @@ export default function ProductDetailPage() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [isZooming, setIsZooming] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = (e) => {
+    if (product.category === 'fragrance') return;
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setZoomPos({ x, y });
+  };
 
   if (!product) {
     return (
@@ -86,12 +96,23 @@ export default function ProductDetailPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="md:col-span-7"
         >
-          <div className="aspect-[4/5] bg-surface-container overflow-hidden relative">
-            <img
-              className="absolute inset-0 object-cover w-full h-full"
+          <div 
+            className={`aspect-[4/5] bg-surface-container overflow-hidden relative ${product.category !== 'fragrance' ? 'cursor-zoom-in' : ''}`}
+            onMouseEnter={() => product.category !== 'fragrance' && setIsZooming(true)}
+            onMouseLeave={() => setIsZooming(false)}
+            onMouseMove={handleMouseMove}
+          >
+            <motion.img
+              className="absolute inset-0 object-cover w-full h-full origin-center"
               alt={product.alt}
               src={product.image}
               style={{ filter: product.filter }}
+              animate={
+                isZooming && product.category !== 'fragrance'
+                  ? { scale: 2, transformOrigin: `${zoomPos.x}% ${zoomPos.y}%` }
+                  : { scale: 1, transformOrigin: '50% 50%' }
+              }
+              transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
             />
           </div>
         </motion.div>
@@ -265,6 +286,57 @@ export default function ProductDetailPage() {
           </button>
         </motion.div>
       </div>
+
+      {/* Reviews Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mt-xl md:mt-[120px] pt-lg border-t border-outline-variant"
+      >
+        <h2 className="text-style-headline-md text-primary mb-md">Customer Reviews</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
+          <div>
+            <div className="flex items-center gap-sm mb-sm">
+              <h3 className="text-style-title-lg font-bold">4.8</h3>
+              <div className="flex text-primary">
+                <span className="material-symbols-outlined text-md">star</span>
+                <span className="material-symbols-outlined text-md">star</span>
+                <span className="material-symbols-outlined text-md">star</span>
+                <span className="material-symbols-outlined text-md">star</span>
+                <span className="material-symbols-outlined text-md">star_half</span>
+              </div>
+              <span className="text-style-body-sm text-secondary">(12 Reviews)</span>
+            </div>
+            <p className="text-style-body-md text-on-surface-variant max-w-md">
+              Our customers love the quality and craftsmanship of this piece. 
+              Leave a review to let others know what you think!
+            </p>
+            <button className="mt-md border border-primary text-primary py-sm px-lg text-style-label-caps hover:bg-surface-variant transition-colors">
+              Write a Review
+            </button>
+          </div>
+          <div className="space-y-md">
+            {[
+              { author: "Ahmad K.", rating: 5, date: "2 days ago", text: "Absolutely stunning quality. The fabric feels premium and the fit is perfect." },
+              { author: "Zainab R.", rating: 5, date: "1 week ago", text: "Bought this as a gift. The packaging and the product itself exceeded expectations." }
+            ].map((review, idx) => (
+              <div key={idx} className="bg-surface-container p-md rounded-sm">
+                <div className="flex justify-between items-center mb-xs">
+                  <span className="font-semibold text-style-label-caps">{review.author}</span>
+                  <span className="text-style-body-sm text-secondary">{review.date}</span>
+                </div>
+                <div className="flex text-primary mb-sm">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <span key={i} className="material-symbols-outlined text-sm">star</span>
+                  ))}
+                </div>
+                <p className="text-style-body-md text-on-surface-variant">{review.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </motion.section>
   );
 }

@@ -5,6 +5,7 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const { addToast } = useToast();
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const [cartItems, setCartItems] = useState(() => {
     try {
@@ -57,8 +58,14 @@ export function CartProvider({ children }) {
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+  const openCart = useCallback(() => setIsCartOpen(true), []);
+  const closeCart = useCallback(() => setIsCartOpen(false), []);
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartCount }}>
+    <CartContext.Provider value={{ 
+      cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartCount,
+      isCartOpen, openCart, closeCart
+    }}>
       {children}
     </CartContext.Provider>
   );

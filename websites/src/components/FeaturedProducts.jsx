@@ -4,6 +4,23 @@ import { useCart } from '../context/CartContext';
 import { products, categories } from '../data/products';
 import { motion } from 'framer-motion';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { x: 30, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { type: 'spring', stiffness: 100, damping: 20 },
+  },
+};
+
 export default function FeaturedProducts() {
   const { addToCart } = useCart();
   const [addedId, setAddedId] = useState(null);
@@ -43,11 +60,18 @@ export default function FeaturedProducts() {
             </div>
 
             {/* Horizontal Scroll Container */}
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-gutter pb-md [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-gutter pb-md [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
               {categoryProducts.map((product) => (
-                <div 
+                <motion.div 
+                  variants={itemVariants}
                   key={product.id} 
-                  className="flex flex-col group min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start"
+                  className="flex flex-col group min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start relative"
                 >
                   <Link
                     to={`/product/${product.id}`}
@@ -59,24 +83,22 @@ export default function FeaturedProducts() {
                       src={product.image}
                       style={{ filter: product.filter }}
                     />
+                    <div className="absolute bottom-0 left-0 right-0 p-sm translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <button
+                        onClick={(e) => { e.preventDefault(); handleAddToCart(product); }}
+                        className="w-full bg-primary/90 backdrop-blur-sm text-on-primary py-sm text-style-label-caps hover:bg-primary transition-colors"
+                      >
+                        {addedId === product.id ? '✓ Added' : 'Quick Add'}
+                      </button>
+                    </div>
                   </Link>
                   <Link to={`/product/${product.id}`} className="flex justify-between items-start mb-sm hover:opacity-80 transition-opacity">
                     <h3 className="font-headline text-xl text-primary">{product.name}</h3>
                     <span className="text-style-body-md text-on-surface-variant ml-sm">{product.price}</span>
                   </Link>
-                  <button
-                    onClick={() => handleAddToCart(product)}
-                    className={`mt-auto w-full border text-style-button py-sm transition-colors cursor-pointer ${
-                      addedId === product.id
-                        ? 'bg-primary text-on-primary border-primary'
-                        : 'border-primary text-primary hover:bg-primary hover:text-on-primary'
-                    }`}
-                  >
-                    {addedId === product.id ? '✓ Added to Bag' : 'Add to Bag'}
-                  </button>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </section>
         );
       })}

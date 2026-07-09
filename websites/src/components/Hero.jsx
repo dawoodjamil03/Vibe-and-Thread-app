@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -31,8 +32,15 @@ const imageVariants = {
 };
 
 export default function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   return (
-    <section id="hero-section" className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-lg md:py-xl overflow-hidden">
+    <section ref={ref} id="hero-section" className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-lg md:py-xl overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
         {/* Hero Text (Left) */}
         <motion.div 
@@ -80,7 +88,8 @@ export default function Hero() {
             variants={imageVariants}
             initial="hidden"
             animate="visible"
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-[120%]"
+            style={{ y, originY: 0 }}
             alt="Premium unstitched fabrics and ethnic menswear"
             src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1200"
           />

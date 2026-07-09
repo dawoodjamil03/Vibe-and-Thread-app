@@ -1,13 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
-import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useWishlist } from '../context/WishlistContext';
 import { categories } from '../data/products';
 import { fuzzySearch } from '../lib/search';
+import { motion } from 'framer-motion';
 
 export default function Header() {
-  const { cartCount } = useCart();
+  const { cartCount, openCart } = useCart();
   const { wishlistCount } = useWishlist();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function Header() {
   const searchInputRef = useRef(null);
   
   const [activeSection, setActiveSection] = useState('home');
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     if (searchOpen && searchInputRef.current) {
@@ -27,80 +29,94 @@ export default function Header() {
     }
   }, [searchOpen]);
 
+  // ── Scroll Spy: track which category section is visible ──
   useEffect(() => {
-    if (location.pathname !== '/') {
-      setActiveSection('');
+    if (!isHomePage) {
+      // On collection pages, highlight matching category
+      const match = location.pathname.match(/^\/collections\/(.+)/);
+      setActiveSection(match ? match[1] : '');
       return;
     }
 
     const handleScroll = () => {
-      let currentSection = 'home';
-      const scrollPosition = window.scrollY + 100;
+      // At the very top → home
+      if (window.scrollY < 300) {
+        setActiveSection('home');
+        return;
+      }
 
-      categories.forEach(category => {
-        const element = document.getElementById(`category-${category.slug}`);
-        if (element) {
-          const { top, bottom } = element.getBoundingClientRect();
-          // Find the section closest to the top
-          if (top <= 300 && bottom >= 300) {
-            currentSection = category.slug;
+      // Walk through each section and find the one whose top is closest to (but above) the viewport midpoint
+      let bestSection = 'home';
+      const viewportMid = window.innerHeight * 0.35;
+
+      for (const category of categories) {
+        const el = document.getElementById(`category-${category.slug}`);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // Section is in view if its top is above the midpoint and its bottom is below the midpoint
+          if (rect.top <= viewportMid && rect.bottom > viewportMid) {
+            bestSection = category.slug;
           }
         }
-      });
-
-      // Special case for hero/home top
-      if (window.scrollY < 200) {
-        currentSection = 'home';
       }
 
-      setActiveSection(currentSection);
+      setActiveSection(bestSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // initial check
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+  }, [isHomePage, location.pathname]);
 
-  // Fuzzy search — handles typos like "korta" → "kurta"
+  // ── Fuzzy search ──
   const searchResults = fuzzySearch(searchQuery, 6);
 
-  const getNavLinkClass = (slug, isActive) => {
-    const isCurrentlyActive = (location.pathname === '/' && activeSection === slug) || isActive;
-    return `transition-opacity duration-200 ${
-      isCurrentlyActive
-        ? 'text-primary border-b border-primary pb-1 font-semibold'
-        : 'text-secondary hover:opacity-70'
-    }`;
-  };
-
-  const getMobileNavLinkClass = (slug, isActive) => {
-    const isCurrentlyActive = (location.pathname === '/' && activeSection === slug) || isActive;
-    return `py-xs transition-opacity duration-200 ${
-      isCurrentlyActive ? 'text-primary font-semibold' : 'text-secondary hover:opacity-70'
-    }`;
-  };
-
-  const handleNavClick = (e, slug) => {
-    if (location.pathname === '/') {
-      if (slug === 'home') {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        const element = document.getElementById(`category-${slug}`);
-        if (element) {
-          e.preventDefault();
-          const headerOffset = 64;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }
+  // ── Smooth scroll to a category section on the homepage ──
+  const scrollToSection = useCallback((slug) => {
+    if (slug === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     }
-    closeMobileMenu();
+    const el = document.getElementById(`category-${slug}`);
+    if (el) {
+      const headerOffset = 80;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }, []);
+
+  // ── Handle nav click: scroll if on homepage, navigate otherwise ──
+  const handleNavClick = useCallback((slug) => {
+    setMobileMenuOpen(false);
+
+    if (isHomePage) {
+      // Already on homepage → just smooth scroll
+      scrollToSection(slug);
+    } else if (slug === 'home') {
+      // Navigate to homepage
+      navigate('/');
+    } else {
+      // Navigate to collection page
+      navigate(`/collections/${slug}`);
+    }
+  }, [isHomePage, navigate, scrollToSection]);
+
+  // ── Style helpers ──
+  const getNavClass = (slug) => {
+    const isActive = activeSection === slug;
+    return `relative transition-all duration-200 cursor-pointer ${
+      isActive
+        ? 'text-primary font-semibold'
+        : 'text-secondary hover:text-primary hover:opacity-80'
+    }`;
+  };
+
+  const getMobileNavClass = (slug) => {
+    const isActive = activeSection === slug;
+    return `py-xs transition-all duration-200 cursor-pointer ${
+      isActive ? 'text-primary font-semibold' : 'text-secondary hover:text-primary'
+    }`;
   };
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -115,20 +131,13 @@ export default function Header() {
   };
 
   const handleCartClick = () => {
-    if (user) {
-      navigate('/cart');
-    } else {
-      navigate('/login', { state: { from: { pathname: '/cart' } } });
-    }
+    openCart();
     closeMobileMenu();
   };
   
   const handleWishlistClick = () => {
-    if (user) {
-      navigate('/wishlist');
-    } else {
-      navigate('/login', { state: { from: { pathname: '/wishlist' } } });
-    }
+    // Wishlist works without login (uses localStorage)
+    navigate('/wishlist');
     closeMobileMenu();
   };
 
@@ -137,6 +146,7 @@ export default function Header() {
       id="main-header"
       className="bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant sticky top-0 w-full z-40 transition-all"
     >
+      {/* Search Overlay */}
       <div
         className={`absolute top-0 left-0 w-full h-[64px] bg-surface-container-lowest flex items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto transition-all duration-300 ${
           searchOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-full'
@@ -195,6 +205,7 @@ export default function Header() {
         )}
       </div>
 
+      {/* Main Header Bar */}
       <div className="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
         <button
           id="mobile-menu-toggle"
@@ -209,7 +220,7 @@ export default function Header() {
           id="brand-logo"
           className="flex items-center gap-xs text-style-headline-md tracking-tighter text-primary flex-shrink-0"
           to="/"
-          onClick={(e) => handleNavClick(e, 'home')}
+          onClick={() => { if (isHomePage) scrollToSection('home'); }}
         >
           <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="20" r="20" fill="currentColor" />
@@ -219,26 +230,28 @@ export default function Header() {
           <span className="hidden sm:inline-block">Vibe &amp; Thread</span>
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="hidden lg:flex space-x-md text-style-label-caps">
-          <NavLink 
-            className={({ isActive }) => getNavLinkClass('home', isActive)} 
-            to="/"
-            onClick={(e) => handleNavClick(e, 'home')}
-          >
-            Home
-          </NavLink>
-          {categories.map(cat => (
-            <NavLink 
-              key={cat.id} 
-              className={({ isActive }) => getNavLinkClass(cat.slug, isActive)} 
-              to={`/collections/${cat.slug}`}
-              onClick={(e) => handleNavClick(e, cat.slug)}
+          {[{ slug: 'home', name: 'Home' }, ...categories].map(cat => (
+            <button
+              key={cat.slug}
+              className={`${getNavClass(cat.slug)} py-1 px-1`}
+              onClick={() => handleNavClick(cat.slug)}
             >
               {cat.name}
-            </NavLink>
+              {activeSection === cat.slug && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
+                  initial={false}
+                  transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                />
+              )}
+            </button>
           ))}
         </nav>
 
+        {/* Action Icons */}
         <div className="flex items-center space-x-md text-primary">
           <button
             id="search-toggle"
@@ -280,28 +293,27 @@ export default function Header() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <div
         className={`lg:hidden bg-surface-container-lowest border-t border-outline-variant overflow-hidden transition-all duration-300 ${
           mobileMenuOpen ? 'max-h-[500px] py-sm' : 'max-h-0'
         }`}
       >
         <nav className="flex flex-col space-y-sm px-margin-mobile text-style-label-caps">
-          <NavLink 
-            className={({ isActive }) => getMobileNavLinkClass('home', isActive)} 
-            to="/" 
-            onClick={(e) => handleNavClick(e, 'home')}
+          <button
+            className={getMobileNavClass('home') + ' text-left'}
+            onClick={() => handleNavClick('home')}
           >
             Home
-          </NavLink>
+          </button>
           {categories.map(cat => (
-            <NavLink 
-              key={cat.id} 
-              className={({ isActive }) => getMobileNavLinkClass(cat.slug, isActive)} 
-              to={`/collections/${cat.slug}`} 
-              onClick={(e) => handleNavClick(e, cat.slug)}
+            <button
+              key={cat.id}
+              className={getMobileNavClass(cat.slug) + ' text-left'}
+              onClick={() => handleNavClick(cat.slug)}
             >
               {cat.name}
-            </NavLink>
+            </button>
           ))}
           
           <div className="flex items-center gap-md pt-md mt-sm border-t border-outline-variant">

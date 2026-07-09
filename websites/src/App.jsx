@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Toast from './components/Toast';
+import CartDrawer from './components/CartDrawer';
 import PageTransition from './components/PageTransition';
 import HomePage from './pages/HomePage';
 import CollectionPage from './pages/CollectionPage';
@@ -22,6 +23,7 @@ export default function App() {
     <div className="bg-background text-on-background min-h-screen flex flex-col antialiased">
       <ScrollToTop />
       <Toast />
+      <CartDrawer />
       <AnnouncementBar />
       <Header />
       <main className="flex-grow">
