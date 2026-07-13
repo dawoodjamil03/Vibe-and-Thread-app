@@ -124,7 +124,7 @@ export default function CheckoutPage() {
                   required
                   type="email"
                   name="email"
-                  autoComplete="email"
+                  autoComplete="off"
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="name@example.com"
@@ -140,11 +140,11 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-2 gap-md">
                 <div>
                   <label className="block text-style-label-caps text-secondary mb-xs">First Name <span className="text-error">*</span></label>
-                  <input required autoComplete="given-name" type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="First Name" className="w-full border border-outline-variant p-sm text-style-body-md focus:border-primary outline-none" />
+                  <input required autoComplete="off" type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="First Name" className="w-full border border-outline-variant p-sm text-style-body-md focus:border-primary outline-none" />
                 </div>
                 <div>
                   <label className="block text-style-label-caps text-secondary mb-xs">Last Name <span className="text-error">*</span></label>
-                  <input required autoComplete="family-name" type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Last Name" className="w-full border border-outline-variant p-sm text-style-body-md focus:border-primary outline-none" />
+                  <input required autoComplete="off" type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Last Name" className="w-full border border-outline-variant p-sm text-style-body-md focus:border-primary outline-none" />
                 </div>
               </div>
 

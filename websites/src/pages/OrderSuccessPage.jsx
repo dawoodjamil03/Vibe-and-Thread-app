@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { motion } from 'framer-motion';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export default function OrderSuccessPage() {
   const { cartItems, clearCart } = useCart();
   const [orderData, setOrderData] = useState(null);
+  const hasDownloadedPdf = useRef(false);
 
   useEffect(() => {
     // Retrieve order data passed from checkout
@@ -25,6 +26,13 @@ export default function OrderSuccessPage() {
       clearCart();
     }
   }, [cartItems.length, clearCart]);
+
+  useEffect(() => {
+    if (orderData && orderData.items && !hasDownloadedPdf.current) {
+      hasDownloadedPdf.current = true;
+      generatePDF();
+    }
+  }, [orderData]);
 
   const generatePDF = () => {
     if (!orderData || !orderData.items) return;
@@ -64,7 +72,7 @@ export default function OrderSuccessPage() {
       `Rs. ${(item.priceNum * item.quantity).toLocaleString()}`
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 60,
       head: [['Item', 'Size', 'Qty', 'Unit Price', 'Total']],
       body: tableData,
