@@ -10,7 +10,7 @@ export default function CategoryLinks() {
           {categories.map((cat) => (
             <Link
               key={cat.id}
-              id={`category-${cat.id}`}
+              id={`category-link-${cat.id}`}
               className="group flex flex-col items-center gap-md"
               to={`/collections/${cat.slug}`}
             >

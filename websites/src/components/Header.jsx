@@ -45,16 +45,15 @@ export default function Header() {
         return;
       }
 
-      // Walk through each section and find the one whose top is closest to (but above) the viewport midpoint
+      // Find the last section whose top is above the midpoint (or slightly below it)
       let bestSection = 'home';
-      const viewportMid = window.innerHeight * 0.35;
+      const threshold = window.innerHeight * 0.4;
 
       for (const category of categories) {
         const el = document.getElementById(`category-${category.slug}`);
         if (el) {
           const rect = el.getBoundingClientRect();
-          // Section is in view if its top is above the midpoint and its bottom is below the midpoint
-          if (rect.top <= viewportMid && rect.bottom > viewportMid) {
+          if (rect.top <= threshold) {
             bestSection = category.slug;
           }
         }

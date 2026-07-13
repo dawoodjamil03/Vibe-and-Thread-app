@@ -26,6 +26,40 @@ export default function ProductDetailPage() {
     setZoomPos({ x, y });
   };
 
+  const getReviews = (category, productName) => {
+    switch(category) {
+      case 'unstitched':
+        return [
+          { author: "Ahmad K.", rating: 5, date: "2 days ago", text: `The fabric quality of the ${productName} is absolutely stunning. It feels premium and drapes beautifully.` },
+          { author: "Zainab R.", rating: 5, date: "1 week ago", text: "Bought this unstitched fabric as a gift. The packaging and the material itself exceeded expectations." }
+        ];
+      case 'kurta-pajama':
+        return [
+          { author: "Bilal M.", rating: 5, date: "3 days ago", text: `The stitching on this ${productName} is flawless. Perfect fit and very comfortable to wear all day.` },
+          { author: "Omar F.", rating: 4, date: "2 weeks ago", text: "Great material and classic look. The color matches the pictures perfectly." }
+        ];
+      case 'waistcoats':
+        return [
+          { author: "Saad T.", rating: 5, date: "1 day ago", text: `This waistcoat adds such a classy touch. The inner lining is very comfortable and the fit is tailored perfectly.` },
+          { author: "Hassan Y.", rating: 5, date: "5 days ago", text: "Wore this to a wedding and got so many compliments. Exceptional craftsmanship!" }
+        ];
+      case 'fragrance':
+        return [
+          { author: "Tariq P.", rating: 5, date: "4 days ago", text: `The scent of ${productName} is long-lasting and very sophisticated. Definitely my new signature fragrance.` },
+          { author: "Kamran A.", rating: 5, date: "1 month ago", text: "Incredible packaging and an even better smell. Not too overpowering but lasts all day." }
+        ];
+      case 'accessories':
+        return [
+          { author: "Faisal B.", rating: 5, date: "1 week ago", text: `Such a premium feel to this accessory. It completes my formal look perfectly.` },
+          { author: "Usman Q.", rating: 4, date: "3 weeks ago", text: "Very high quality. You can tell a lot of attention to detail went into making this." }
+        ];
+      default:
+        return [
+          { author: "Ali R.", rating: 5, date: "Just now", text: "Excellent product, highly recommended!" }
+        ];
+    }
+  };
+
   if (!product) {
     return (
       <section className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-xl text-center">
@@ -308,7 +342,7 @@ export default function ProductDetailPage() {
               </div>
               <span className="text-style-body-sm text-secondary">(12 Reviews)</span>
             </div>
-            <p className="text-style-body-md text-on-surface-variant max-w-md">
+            <p className="text-style-body-md text-on-surface-variant max-w-[480px]">
               Our customers love the quality and craftsmanship of this piece. 
               Leave a review to let others know what you think!
             </p>
@@ -317,10 +351,7 @@ export default function ProductDetailPage() {
             </button>
           </div>
           <div className="space-y-md">
-            {[
-              { author: "Ahmad K.", rating: 5, date: "2 days ago", text: "Absolutely stunning quality. The fabric feels premium and the fit is perfect." },
-              { author: "Zainab R.", rating: 5, date: "1 week ago", text: "Bought this as a gift. The packaging and the product itself exceeded expectations." }
-            ].map((review, idx) => (
+            {getReviews(product.category, product.name).map((review, idx) => (
               <div key={idx} className="bg-surface-container p-md rounded-sm">
                 <div className="flex justify-between items-center mb-xs">
                   <span className="font-semibold text-style-label-caps">{review.author}</span>
