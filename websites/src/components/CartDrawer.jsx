@@ -46,7 +46,13 @@ export default function CartDrawer() {
               ) : (
                 cartItems.map((item) => (
                   <div key={`${item.id}-${item.size}`} className="flex gap-md border-b border-outline-variant pb-md">
-                    <img src={item.images[0]} alt={item.name} className="w-20 h-24 object-cover" />
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} className="w-20 h-24 object-cover bg-surface-container" style={{ filter: item.filter }} />
+                    ) : (
+                      <div className="w-20 h-24 flex items-center justify-center bg-surface-container">
+                        <span className="material-symbols-outlined text-outline-variant">image</span>
+                      </div>
+                    )}
                     <div className="flex-1">
                       <h3 className="text-style-body-md font-semibold">{item.name}</h3>
                       <p className="text-style-body-sm text-secondary">Size: {item.size}</p>

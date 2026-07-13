@@ -34,14 +34,12 @@ export function CartProvider({ children }) {
   }, [addToast]);
 
   const removeFromCart = useCallback((productId, size = null) => {
-    setCartItems((prev) => {
-      const itemToRemove = prev.find(item => item.id === productId && (size === null || item.size === size));
-      if (itemToRemove) {
-        addToast(`${itemToRemove.name} removed`, 'info');
-      }
-      return prev.filter((item) => !(item.id === productId && (size === null || item.size === size)));
-    });
-  }, [addToast]);
+    const itemToRemove = cartItems.find(item => item.id === productId && (size === null || item.size === size));
+    if (itemToRemove) {
+      addToast(`${itemToRemove.name} removed`, 'info');
+    }
+    setCartItems((prev) => prev.filter((item) => !(item.id === productId && (size === null || item.size === size))));
+  }, [cartItems, addToast]);
 
   const updateQuantity = useCallback((productId, size, newQuantity) => {
     if (newQuantity < 1) return;

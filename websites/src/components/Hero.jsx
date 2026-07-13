@@ -65,20 +65,20 @@ export default function Hero() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-md pt-sm"
           >
-            <a
+            <Link
               id="shop-unstitched-cta"
-              href="#category-unstitched"
+              to="/collections/unstitched"
               className="bg-primary text-on-primary text-style-button py-sm px-lg hover:bg-primary-container transition-colors duration-300 border border-transparent text-center"
             >
               Shop New Arrivals
-            </a>
-            <a
+            </Link>
+            <Link
               id="shop-kurta-cta"
-              href="#category-kurta-pajama"
+              to="/collections/kurta-pajama"
               className="bg-transparent text-primary text-style-button py-sm px-lg border border-primary hover:bg-surface-container transition-colors duration-300 text-center"
             >
               Explore Collections
-            </a>
+            </Link>
           </motion.div>
         </motion.div>
 
